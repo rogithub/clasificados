@@ -1,0 +1,18 @@
+<label data-bind="attr: { 'for': id }, text: label"></label>
+<input type="text" class="form-control" data-bind="attr: { 
+        'id': id, 
+        'maxlength': maxLength
+    }, 
+    css: { 
+        'is-invalid': obs.hasError(),
+        'is-valid': !obs.hasError() && obs.wasValidated() 
+    },
+    textInput: obs.value ">
+<div class="valid-feedback">
+    !Muy bien!
+</div>
+<div class="invalid-feedback">
+    <!-- ko foreach: obs.errors -->
+    <span data-bind="text: $data"></span>
+    <!-- /ko -->
+</div>

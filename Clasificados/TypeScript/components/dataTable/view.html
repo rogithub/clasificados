@@ -1,0 +1,34 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th data-bind="attr: { colspan: cols().length }">
+                <search-field params="model: searchModel"></search-field>
+            </th>
+        </tr>
+        <tr>
+            <!-- ko foreach: { data: cols, as: 'c' } -->
+            <th>
+                <data-cell params="template: c.info.headTemplate, data: c.model"></data-cell>
+            </th>
+            <!-- /ko -->
+        </tr>
+    </thead>
+    <tbody>
+        <!-- ko foreach: { data: rows, as: 'r' } -->
+        <tr>
+            <!-- ko foreach: $parent.cols() -->
+            <td>
+                <data-cell params="template: info.celTemplate, data: info.getCellData(r)"></data-cell>
+            </td>
+            <!-- /ko -->
+        </tr>
+        <!-- /ko -->
+    </tbody>
+    <tfoot>
+        <tr>
+            <td data-bind="attr: { colspan: cols().length }">
+                <pagination params="model: pagination"></pagination>
+            </td>
+        </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,61 @@
+<form data-bind="submit: $data.onSave.bind($data)" novalidate>
+
+    <div class="form-row">
+        <div class="col-md-12 mb-3">
+
+            <text-input params="options: { 
+            id: 'txtNombre', 
+            label: 'Nombre de Contacto',
+            maxLength: 100,
+            obs: contacto 
+            }"></text-input>
+
+        </div>
+        <div class="col-md-12 mb-3">
+
+            <text-input params="options: { 
+            id: 'txtEmpresa', 
+            label: 'Empresa',
+            maxLength: 100,
+            obs: empresa 
+            }"></text-input>
+
+        </div>
+        <div class="col-md-12 mb-3">
+
+            <text-input params="options: { 
+            id: 'txtTelefono', 
+            label: 'Teléfono',
+            maxLength: 10,
+            obs: telefono 
+            }"></text-input>
+
+        </div>
+        <div class="col-md-12 mb-3">
+
+            <text-email params="options: { 
+            id: 'txtEmail', 
+            label: 'Email',
+            maxLength: 100,
+            obs: email
+            }"></text-email>
+
+        </div>
+        <div class="col-md-12 mb-3">
+
+            <text-area params="options: { 
+            id: 'txtDomicilio', 
+            label: 'Domicilio',
+            maxLength: 300,
+            obs: domicilio 
+            }"></text-area>
+
+        </div>
+    </div>
+
+    <div class="text-right">
+        <button class="btn btn-secondary" data-bind="click: $data.indexRedirect.bind($data)"
+            type="button">Cancelar</button>
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </div>
+</form>

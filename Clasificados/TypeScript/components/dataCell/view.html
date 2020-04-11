@@ -1,0 +1,34 @@
+<script type="text/html" id="data-cell-sortable-header-template">
+    <a data-bind="click: changeOrder">
+        <label data-bind="text: title" style="cursor: pointer;"></label>
+        <!-- ko if: order() === 0 -->
+        <i class="fas fa-sort"></i>
+        <!-- /ko -->
+        <!-- ko if: order() === 1 -->
+        <i class="fas fa-sort-up"></i>
+        <!-- /ko -->
+        <!-- ko if: order() === 2 -->
+        <i class="fas fa-sort-down"></i>
+        <!-- /ko -->
+    </a>
+</script>
+
+<script type="text/html" id="data-cell-default-data-template">
+    <label data-bind="text: $data"></label>
+</script>
+
+<script type="text/html" id="data-cell-actions-header-template">
+    <a class="btn btn-outline-danger" data-bind="click: onDelete" >
+        <i class="far fa-trash-alt"></i>
+    </a>
+
+    <a class="btn btn-outline-success" data-bind="click: onEdit">
+        <i class="far fa-edit"></i>
+    </a>
+
+</script>
+
+
+
+<!-- ko template: { name: template, data: data } -->
+<!-- /ko -->
