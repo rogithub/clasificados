@@ -1,35 +1,45 @@
 export default {
     host: "https://localhost:5001",
     api: {
-	cuentas: {
-	    base: '/Cuentas',
-	    get: '/Cuentas/get'
-	},
-        facturacion: {
-            base: '/DatosFacturacion',
-            get: '/DatosFacturacion/get',
+        inmuebles: {
+            base: '/inmuebles',
+            get: '/inmuebles/get'
         },
-        clientes: {
-            base: '/clientes',
-            search: '/clientes/search',
-            get: '/clientes/get',
+        vehiculos: {
+            base: '/vehiculos',
+            get: '/vehiculos/get',
         },
-        proveedores: {
-            base: '/proveedores',
-            search: '/proveedores/search',
-            get: '/proveedores/get',
+        empleos: {
+            base: '/empleos',
+            search: '/empleos/search',
+            get: '/empleos/get',
+        },
+        varios: {
+            base: '/varios',
+            search: '/varios/search',
+            get: '/varios/get',
         }
     },
     web: {
-        clientes: {
-            index: "/Clientes/Index",
-            nuevo: "/Clientes/Nuevo",
-            editar: "/Clientes/Editar"
+        inmuebles: {
+            index: "/inmuebles/Index",
+            nuevo: "/inmuebles/Nuevo",
+            editar: "/inmuebles/Editar"
         },
-        proveedores: {
-            index: "/Proveedores/Index",
-            nuevo: "/Proveedores/Nuevo",
-            editar: "/Proveedores/Editar"
+        vehiculos: {
+            index: "/vehiculos/Index",
+            nuevo: "/vehiculos/Nuevo",
+            editar: "/vehiculos/Editar"
+        },
+        empleos: {
+            index: "/empleos/Index",
+            nuevo: "/empleos/Nuevo",
+            editar: "/empleos/Editar"
+        },
+        varios: {
+            index: "/varios/Index",
+            nuevo: "/varios/Nuevo",
+            editar: "/varios/Editar"
         }
     }
 

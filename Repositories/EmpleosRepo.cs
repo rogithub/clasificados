@@ -19,12 +19,19 @@ namespace Repositories
         public.empleos WHERE id=@id AND activo=TRUE;";
         protected override string SerchSql =>
         @"SELECT 
-            id, idEstado, idCiudad, descripcion, fecha, activo
+            v.id, v.idEstado, v.idCiudad, v.descripcion, v.fecha, v.activo
             COUNT(*) OVER() as total_rows 
         FROM 
-            public.empleos WHERE activo=TRUE {0} 
+            public.empleos v inner join public.estados e on 
+                v.idEstado = e.id inner join public.ciudades c on 
+                v.idCiudad = c.id                
+            WHERE 
+                v.activo=TRUE   AND
+                e.url = @estado AND 
+                c.url = @ciudad
+                {0}                 
         ORDER BY 
-            {1}
+            v.fecha desc
         LIMIT @limit OFFSET @offset;";
 
         protected override string DeleteSql =>

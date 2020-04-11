@@ -19,23 +19,6 @@ namespace Clasificados.Controllers
             return View();
         }
 
-        public IActionResult Inmuebles()
-        {
-            return View();
-        }
-        public IActionResult Varios()
-        {
-            return View();
-        }
-        public IActionResult Vehiculos()
-        {
-            return View();
-        }
-        public IActionResult Empleos()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

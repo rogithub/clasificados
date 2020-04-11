@@ -20,6 +20,8 @@ namespace Entities
     }
     public class SearchData
     {
+        public string Estado { get; set; }
+        public string Ciudad { get; set; }
         public string Pattern { get; set; }
         public OrderCol[] Columns { get; set; }
         public int Limit { get; set; }

@@ -78,6 +78,10 @@ namespace Clasificados
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "lugar",
+                    pattern: "{controller}/{action=en}/{ciudad}/{estado}");
             });
         }
     }

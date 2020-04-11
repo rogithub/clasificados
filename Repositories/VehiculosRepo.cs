@@ -18,12 +18,19 @@ namespace Repositories
         FROM public.vehiculos WHERE id=@id AND activo=TRUE;";
         protected override string SerchSql =>
         @"SELECT 
-            id, idEstado, idCiudad, marca, modelo, año, descripcion, fecha, activo
+            v.id, v.idEstado, v.idCiudad, v.marca, v.modelo, v.año, v.descripcion, v.fecha, v.activo
             COUNT(*) OVER() as total_rows 
         FROM 
-            public.vehiculos WHERE activo=TRUE {0} 
+            public.vehiculos v inner join public.estados e on 
+                v.idEstado = e.id inner join public.ciudades c on 
+                v.idCiudad = c.id                
+            WHERE 
+                v.activo=TRUE   AND
+                e.url = @estado AND 
+                c.url = @ciudad
+                {0}                 
         ORDER BY 
-            {1}
+            v.fecha desc
         LIMIT @limit OFFSET @offset;";
 
         protected override string DeleteSql =>
@@ -52,7 +59,7 @@ namespace Repositories
                 CiudadId = dr.GetInt("idCiudad"),
                 Marca = dr.GetString("marca"),
                 Modelo = dr.GetString("modelo"),
-                Year = dr.GetString("año"),
+                Año = dr.GetString("año"),
                 Fecha = dr.GetDate("fecha"),
                 Activo = dr.GetValue<bool>("activo"),
                 Descripcion = dr.GetString("descripcion")
@@ -97,7 +104,7 @@ namespace Repositories
                 { "@idCiudad", "@idCiudad".ToParam(DbType.Int64, model.CiudadId) },
                 { "@marca", "@marca".ToParam(DbType.String, model.Marca) },
                 { "@modelo", "@modelo".ToParam(DbType.String, model.Modelo) },
-                { "@año", "@año".ToParam(DbType.String, model.Year) },
+                { "@año", "@año".ToParam(DbType.String, model.Año) },
                 { "@descripcion", "@descripcion".ToParam(DbType.String, model.Descripcion) },
                 { "@fechacreado", "@fechacreado".ToParam(DbType.DateTime, model.Fecha) },
                 { "@activo", "@activo".ToParam(DbType.Boolean, model.Activo) }
