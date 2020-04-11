@@ -5,13 +5,13 @@ using Clasificados.Models;
 
 namespace Clasificados.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private ILogger Logger { get; set; }
 
-        public HomeController(ILogger logger)
+
+        public HomeController(ILogger logger) : base(logger)
         {
-            Logger = logger;
+
         }
 
         public IActionResult Index()
@@ -19,10 +19,9 @@ namespace Clasificados.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Lugar()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }
