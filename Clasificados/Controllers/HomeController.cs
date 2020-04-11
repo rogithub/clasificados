@@ -23,7 +23,19 @@ namespace Clasificados.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Inmuebles()
+        {
+            return View();
+        }
+        public IActionResult Varios()
+        {
+            return View();
+        }
+        public IActionResult Vehiculos()
+        {
+            return View();
+        }
+        public IActionResult Empleos()
         {
             return View();
         }
