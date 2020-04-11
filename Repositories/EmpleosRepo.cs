@@ -6,9 +6,9 @@ using ReactiveDb;
 
 namespace Repositories
 {
-    public class EmpelosRepo : BaseRepo<Empleo>, IBaseRepo<Empleo>
+    public class EmpleosRepo : BaseRepo<Empleo>, IBaseRepo<Empleo>
     {
-        public EmpelosRepo(IDatabase db) : base(db)
+        public EmpleosRepo(IDatabase db) : base(db)
         {
 
         }

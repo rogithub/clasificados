@@ -46,7 +46,7 @@ namespace Repositories
             string whereClause = "";
             if (!string.IsNullOrWhiteSpace(entity.Pattern))
             {
-                whereClause = "AND search_field @@ plainto_tsquery(@search)";
+                whereClause = "AND description like CONCAT('%', @search, '%')";
                 parameters.Add("@search".ToParam(DbType.String, entity.Pattern));
             }
             if (entity.Columns == null || entity.Columns.Length == 0)

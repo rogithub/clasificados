@@ -1,13 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using Entities;
+using Repositories;
+using AutoMapper;
 
 namespace Clasificados
 {
@@ -23,6 +23,33 @@ namespace Clasificados
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connString = ConfigurationExtensions.GetConnectionString(this.Configuration, "Default");
+            string clientApp = Configuration["ClientAddress"];
+
+            ILogger logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(this.Configuration)
+                .CreateLogger();
+
+            services.AddSingleton<ILogger>(logger);
+
+            services.AddControllers(cfg =>
+            {
+                cfg.Filters.Add(new Api.Filters.ValidateModelAttribute());
+                cfg.Filters.Add(new Api.Filters.ErrorHandlerAttribute(logger));
+            });
+
+            services.AddTransient<ReactiveDb.IDatabase>((svc) =>
+            {
+                return new ReactiveDb.Database(connString);
+            });
+
+            services.AddTransient(typeof(IBaseRepo<Empleo>), typeof(EmpleosRepo));
+            services.AddTransient(typeof(IBaseRepo<Inmueble>), typeof(InmueblesRepo));
+            services.AddTransient(typeof(IBaseRepo<Vehiculo>), typeof(VehiculosRepo));
+            services.AddTransient(typeof(IBaseRepo<Varios>), typeof(VariosRepo));
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddControllersWithViews();
         }
 
