@@ -1,0 +1,18 @@
+{
+    "all": true,
+    "exclude": [
+        "*.js",
+        "TypeScript/raw",
+        "TypeScript/pages",
+        "TypeScript/spec/",
+        "TypeScript/enums/",
+        "TypeScript/constants/",
+        "**/[Ii]ndex.ts",
+        "wwwroot/",
+        "**/*Spec.js"
+    ],
+    "branches": 80,
+    "lines": 80,
+    "functions": 80,
+    "statements": 80
+}
