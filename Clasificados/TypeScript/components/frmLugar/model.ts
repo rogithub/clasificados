@@ -61,6 +61,10 @@ export class Model extends ObsFrm {
 
     public indexRedirect = () => {
         const self = this;
-        self.url.navigate(urls.web.home.index);
+        let url = urls.web.home.index;
+        if (self.url.getUrlParameter("redirect").length > 0) {
+            url = self.url.getUrlParameter("redirect");
+        }
+        self.url.navigate(url);
     }
 }

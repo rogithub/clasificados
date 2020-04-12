@@ -6,24 +6,16 @@ using Clasificados.Filters;
 
 namespace Clasificados.Controllers
 {
-    public class InmueblesController : Controller
+    public class InmueblesController : BaseController
     {
-        private ILogger Logger { get; set; }
 
-        public InmueblesController(ILogger logger)
+        public InmueblesController(ILogger logger) : base(logger)
         {
-            Logger = logger;
         }
         [RedirectSinLugar]
         public IActionResult Index()
         {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

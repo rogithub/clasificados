@@ -27,8 +27,6 @@ namespace Clasificados.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Lugar model)
         {
-            Logger.Information("{@model}", model);
-
             base.Estado = model.Estado;
             base.Ciudad = model.Ciudad;
             return Json(model);

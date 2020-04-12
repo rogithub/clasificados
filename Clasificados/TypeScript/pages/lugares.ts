@@ -11,7 +11,7 @@ $(() => {
 
     let component = new Component(ko);
 
-    component.register("frm-lugar", FrmLugar, (params) => {
+    component.register("frm-lugar", FrmLugar, () => {
         return new FormLugarModel(ko, api, url);
     });
 

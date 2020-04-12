@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
@@ -10,7 +8,6 @@ namespace Clasificados.Filters
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-
             if (context.Controller is BaseController)
             {
                 BaseController controller = context.Controller as BaseController;
@@ -21,15 +18,15 @@ namespace Clasificados.Filters
                 if (string.IsNullOrWhiteSpace(ciudad) || string.IsNullOrWhiteSpace(estado))
                 {
                     var url = new RouteValueDictionary{
-                    { "controller", "Home" },
-                    { "action", "Lugar" }
-                };
+                        { "controller", "Home" },
+                        { "action", "Lugar" },
+                        { "redirect", context.HttpContext.Request.Path }
+                    };
 
                     context.Result = new RedirectToRouteResult(url);
                     return;
                 }
             }
-
         }
     }
 }

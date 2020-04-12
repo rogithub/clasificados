@@ -6,24 +6,17 @@ using Clasificados.Filters;
 
 namespace Clasificados.Controllers
 {
-    public class VariosController : Controller
+    public class VariosController : BaseController
     {
-        private ILogger Logger { get; set; }
 
-        public VariosController(ILogger logger)
+        public VariosController(ILogger logger) : base(logger)
         {
-            Logger = logger;
+
         }
         [RedirectSinLugar]
         public IActionResult Index()
         {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

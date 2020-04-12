@@ -25,7 +25,8 @@ export default {
     },
     web: {
         home: {
-            index: "/home/index"
+            index: "/home/index",
+            lugar: "/home/lugar"
         },
         inmuebles: {
             index: "/inmuebles/Index",

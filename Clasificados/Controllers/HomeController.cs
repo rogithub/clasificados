@@ -23,12 +23,5 @@ namespace Clasificados.Controllers
         {
             return View();
         }
-
-        public IActionResult GuardarLugar(Lugar model)
-        {
-            base.Estado = model.Estado;
-            base.Ciudad = model.Ciudad;
-            return View();
-        }
     }
 }
