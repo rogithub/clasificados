@@ -14,20 +14,18 @@ namespace Repositories
         }
 
         protected override string GetByIdSql =>
-        @"SELECT id, idEstado, idCiudad, ventarenta, casaterreno, descripcion, fecha, activo
+        @"SELECT id, idCiudad, ventarenta, casaterreno, descripcion, fecha, activo
             FROM 
         public.inmuebles WHERE id=@id AND activo=TRUE;";
         protected override string SerchSql =>
         @"SELECT 
-            v.id, v.idEstado, v.idCiudad, v.ventarenta, v.casaterreno, v.descripcion, v.fecha, v.activo
+            v.id, v.idCiudad, v.ventarenta, v.casaterreno, v.descripcion, v.fecha, v.activo
             COUNT(*) OVER() as total_rows 
         FROM 
-            public.inmuebles v inner join public.estados e on 
-                v.idEstado = e.id inner join public.ciudades c on 
-                v.idCiudad = c.id                
+            public.inmuebles v inner join public.ciudades c on 
+                v.idCiudad = c.id       
             WHERE 
-                v.activo=TRUE   AND
-                e.url = @estado AND 
+                v.activo=TRUE   AND                
                 c.url = @ciudad
                 {0}                 
         ORDER BY 
@@ -47,16 +45,15 @@ namespace Repositories
 
         protected override string SaveSql =>
         @"INSERT INTO public.inmuebles 
-            (idEstado, idCiudad, ventarenta, casaterreno, descripcion, fecha, activo) 
+            (idCiudad, ventarenta, casaterreno, descripcion, fecha, activo) 
             VALUES 
-            (@idEstado, @idCiudad, @ventarenta, @casaterreno, @descripcion, @fecha, @activo);";
+            (@idCiudad, @ventarenta, @casaterreno, @descripcion, @fecha, @activo);";
 
         protected override Inmueble GetData(IDataReader dr)
         {
             return new Inmueble()
             {
                 Id = dr.GetInt("id"),
-                EstadoId = dr.GetInt("idEstado"),
                 CiudadId = dr.GetInt("idCiudad"),
                 VentaRenta = (VentaRenta)dr.GetInt("ventarenta"),
                 CasaTerreno = (CasaTerreno)dr.GetInt("casaterreno"),
@@ -71,7 +68,6 @@ namespace Repositories
             var d = ToParams(model);
             return new IDbDataParameter[] {
                 d["@id"],
-                d["@idEstado"],
                 d["@idCiudad"],
                 d["@ventarenta"],
                 d["@casaterreno"],
@@ -84,7 +80,6 @@ namespace Repositories
         {
             var d = ToParams(model);
             return new IDbDataParameter[] {
-                d["@idEstado"],
                 d["@idCiudad"],
                 d["@ventarenta"],
                 d["@casaterreno"],
@@ -98,7 +93,6 @@ namespace Repositories
         {
             return new Dictionary<string, IDbDataParameter>() {
                 { "@id", "@id".ToParam(DbType.Int64, model.Id) },
-                { "@idEstado", "@idEstado".ToParam(DbType.Int64, model.EstadoId) },
                 { "@idCiudad", "@idCiudad".ToParam(DbType.Int64, model.CiudadId) },
                 { "@ventarenta", "@ventarenta".ToParam(DbType.Int32, model.VentaRenta) },
                 { "@casaterreno", "@casaterreno".ToParam(DbType.Int32, model.CasaTerreno) },

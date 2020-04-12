@@ -1,7 +1,6 @@
 
 export interface Vehiculo {
     id: number;
-    estadoId: number;
     ciudadId: number;
     descripcion: string;
     fecha: Date;

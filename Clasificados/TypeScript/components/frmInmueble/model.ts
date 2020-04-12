@@ -12,7 +12,6 @@ export class Model extends ObsFrm {
     public casaTerreno: ObsExtension<CasaTerreno>;
     public fecha: KnockoutObservable<Date>;
     public id: KnockoutObservable<number>;
-    public estadoId: KnockoutObservable<number>;
     public ciudadId: KnockoutObservable<number>;
     public activo: KnockoutObservable<boolean>;
 
@@ -29,7 +28,6 @@ export class Model extends ObsFrm {
         this.casaTerreno = this.add<CasaTerreno>().with();
         this.activo = ko.observable<boolean>(true);
         this.fecha = ko.observable<Date>(new Date(Date.now()));
-        this.estadoId = ko.observable<number>(0);
         this.ciudadId = ko.observable<number>(0);
         this.id = ko.observable<number>(0);
         const self = this;
@@ -45,7 +43,6 @@ export class Model extends ObsFrm {
         self.casaTerreno.value(m.casaTerreno);
         self.activo(m.activo);
         self.fecha(m.fecha);
-        self.estadoId(m.estadoId);
         self.ciudadId(m.ciudadId);
         self.id(m.id);
     }
@@ -59,7 +56,6 @@ export class Model extends ObsFrm {
             activo: self.activo(),
             fecha: self.fecha(),
             ciudadId: self.ciudadId(),
-            estadoId: self.estadoId(),
             id: self.id()
         }
     }

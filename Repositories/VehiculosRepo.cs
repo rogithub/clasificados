@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Data;
 using Entities;
@@ -14,19 +13,17 @@ namespace Repositories
         }
 
         protected override string GetByIdSql =>
-        @"SELECT id, idEstado, idCiudad, marca, modelo, año, descripcion, fecha, activo
+        @"SELECT id, idCiudad, marca, modelo, año, descripcion, fecha, activo
         FROM public.vehiculos WHERE id=@id AND activo=TRUE;";
         protected override string SerchSql =>
         @"SELECT 
-            v.id, v.idEstado, v.idCiudad, v.marca, v.modelo, v.año, v.descripcion, v.fecha, v.activo
+            v.id, v.idCiudad, v.marca, v.modelo, v.año, v.descripcion, v.fecha, v.activo
             COUNT(*) OVER() as total_rows 
         FROM 
-            public.vehiculos v inner join public.estados e on 
-                v.idEstado = e.id inner join public.ciudades c on 
-                v.idCiudad = c.id                
+            public.vehiculos v inner join public.ciudades c on 
+                v.idCiudad = c.id       
             WHERE 
-                v.activo=TRUE   AND
-                e.url = @estado AND 
+                v.activo=TRUE   AND                
                 c.url = @ciudad
                 {0}                 
         ORDER BY 
@@ -38,24 +35,24 @@ namespace Repositories
 
         protected override string UpdateSql =>
         @"UPDATE public.vehiculos SET
-                ventarenta=@ventarenta,
-                casaterreno=@casaterreno,
                 descripcion=@descripcion,
+                marca=@marca,
+                modelo=@modelo,
+                año=@año,
                 fecha=@fecha
              WHERE id=@id;";
 
         protected override string SaveSql =>
         @"INSERT INTO public.vehiculos 
-            (idEstado, idCiudad, marca, modelo, año, descripcion, fecha, activo) 
+            (idCiudad, marca, modelo, año, descripcion, fecha, activo) 
             VALUES 
-            (@idEstado, @idCiudad, @marca, @modelo, @año, @descripcion, @fecha, @activo);";
+            (@idCiudad, @marca, @modelo, @año, @descripcion, @fecha, @activo);";
 
         protected override Vehiculo GetData(IDataReader dr)
         {
             return new Vehiculo()
             {
                 Id = dr.GetInt("id"),
-                EstadoId = dr.GetInt("idEstado"),
                 CiudadId = dr.GetInt("idCiudad"),
                 Marca = dr.GetString("marca"),
                 Modelo = dr.GetString("modelo"),
@@ -71,7 +68,6 @@ namespace Repositories
             var d = ToParams(model);
             return new IDbDataParameter[] {
                 d["@id"],
-                d["@idEstado"],
                 d["@idCiudad"],
                 d["@marca"],
                 d["@modelo"],
@@ -85,7 +81,6 @@ namespace Repositories
         {
             var d = ToParams(model);
             return new IDbDataParameter[] {
-                d["@idEstado"],
                 d["@idCiudad"],
                 d["@marca"],
                 d["@modelo"],
@@ -100,7 +95,6 @@ namespace Repositories
         {
             return new Dictionary<string, IDbDataParameter>() {
                 { "@id", "@id".ToParam(DbType.Int64, model.Id) },
-                { "@idEstado", "@idEstado".ToParam(DbType.Int64, model.EstadoId) },
                 { "@idCiudad", "@idCiudad".ToParam(DbType.Int64, model.CiudadId) },
                 { "@marca", "@marca".ToParam(DbType.String, model.Marca) },
                 { "@modelo", "@modelo".ToParam(DbType.String, model.Modelo) },

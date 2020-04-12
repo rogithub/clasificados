@@ -14,20 +14,18 @@ namespace Repositories
         }
 
         protected override string GetByIdSql =>
-        @"SELECT id, idEstado, idCiudad, descripcion, fecha, activo
+        @"SELECT id, idCiudad, descripcion, fecha, activo
             FROM 
         public.varios WHERE id=@id AND activo=TRUE;";
         protected override string SerchSql =>
         @"SELECT 
-            v.id, v.idEstado, v.idCiudad, v.descripcion, v.fecha, v.activo
+            v.id, v.idCiudad, v.descripcion, v.fecha, v.activo
             COUNT(*) OVER() as total_rows 
         FROM 
-            public.varios v inner join public.estados e on 
-                v.idEstado = e.id inner join public.ciudades c on 
+            public.varios v inner join public.ciudades c on 
                 v.idCiudad = c.id                
             WHERE 
-                v.activo=TRUE   AND
-                e.url = @estado AND 
+                v.activo=TRUE   AND                
                 c.url = @ciudad
                 {0}                 
         ORDER BY 
@@ -45,16 +43,15 @@ namespace Repositories
 
         protected override string SaveSql =>
         @"INSERT INTO public.varios 
-            (idEstado, idCiudad, descripcion, fecha, activo) 
+            (idCiudad, descripcion, fecha, activo) 
             VALUES 
-            (@idEstado, @idCiudad, @descripcion, @fecha, @activo);";
+            (@idCiudad, @descripcion, @fecha, @activo);";
 
         protected override Varios GetData(IDataReader dr)
         {
             return new Varios()
             {
                 Id = dr.GetInt("id"),
-                EstadoId = dr.GetInt("idEstado"),
                 CiudadId = dr.GetInt("idCiudad"),
                 Fecha = dr.GetDate("fecha"),
                 Activo = dr.GetValue<bool>("activo"),
@@ -67,7 +64,6 @@ namespace Repositories
             var d = ToParams(model);
             return new IDbDataParameter[] {
                 d["@id"],
-                d["@idEstado"],
                 d["@idCiudad"],
                 d["@descripcion"],
                 d["@fecha"],
@@ -78,7 +74,6 @@ namespace Repositories
         {
             var d = ToParams(model);
             return new IDbDataParameter[] {
-                d["@idEstado"],
                 d["@idCiudad"],
                 d["@descripcion"],
                 d["@fecha"],
@@ -90,7 +85,6 @@ namespace Repositories
         {
             return new Dictionary<string, IDbDataParameter>() {
                 { "@id", "@id".ToParam(DbType.Int64, model.Id) },
-                { "@idEstado", "@idEstado".ToParam(DbType.Int64, model.EstadoId) },
                 { "@idCiudad", "@idCiudad".ToParam(DbType.Int64, model.CiudadId) },
                 { "@descripcion", "@descripcion".ToParam(DbType.String, model.Descripcion) },
                 { "@fechacreado", "@fechacreado".ToParam(DbType.DateTime, model.Fecha) },

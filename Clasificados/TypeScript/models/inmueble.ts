@@ -8,7 +8,6 @@ export enum CasaTerreno {
 };
 export interface Inmueble {
     id: number;
-    estadoId: number;
     ciudadId: number;
     descripcion: string;
     fecha: Date;
