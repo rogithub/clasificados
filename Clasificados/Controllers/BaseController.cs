@@ -19,6 +19,7 @@ public class BaseController : Controller
     }
     private string FromBytes(byte[] arr)
     {
+        if (arr == null) return string.Empty;
         return System.Text.Encoding.UTF8.GetString(arr).Trim();
     }
 
@@ -28,8 +29,9 @@ public class BaseController : Controller
         get
         {
             byte[] ciudad = new byte[100];
-            HttpContext.Session.TryGetValue("Ciudad", out ciudad);
-            return FromBytes(ciudad);
+            return HttpContext.Session.TryGetValue("Ciudad", out ciudad) ?
+            FromBytes(ciudad) :
+            string.Empty;
         }
         set
         {

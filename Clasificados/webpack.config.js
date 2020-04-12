@@ -2,10 +2,11 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        clientes: './TypeScript/pages/empleos.ts',
-        nuevoCliente: './TypeScript/pages/inmuebles.ts',
-        editarCliente: './TypeScript/pages/varios.ts',
-        proveedores: './TypeScript/pages/vehiculos.ts'
+        empleos: './TypeScript/pages/empleos.ts',
+        inmuebles: './TypeScript/pages/inmuebles.ts',
+        varios: './TypeScript/pages/varios.ts',
+        vehiculos: './TypeScript/pages/vehiculos.ts',
+        lugares: './TypeScript/pages/lugares.ts'
     },
     mode: 'production',
     optimization: {

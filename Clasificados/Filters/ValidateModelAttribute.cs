@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Api.Filters
+namespace Clasificados.Filters
 {
     public class ValidateModelAttribute : IAsyncActionFilter
     {

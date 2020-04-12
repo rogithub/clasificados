@@ -23,6 +23,15 @@ namespace Clasificados
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             string connString = ConfigurationExtensions.GetConnectionString(this.Configuration, "Default");
             string clientApp = Configuration["ClientAddress"];
 
@@ -34,8 +43,8 @@ namespace Clasificados
 
             services.AddControllers(cfg =>
             {
-                cfg.Filters.Add(new Api.Filters.ValidateModelAttribute());
-                cfg.Filters.Add(new Api.Filters.ErrorHandlerAttribute(logger));
+                cfg.Filters.Add(new Clasificados.Filters.ValidateModelAttribute());
+                cfg.Filters.Add(new Clasificados.Filters.ErrorHandlerAttribute(logger));
             });
 
             services.AddTransient<ReactiveDb.IDatabase>((svc) =>
@@ -66,8 +75,10 @@ namespace Clasificados
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 
@@ -78,10 +89,6 @@ namespace Clasificados
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
-                    name: "lugar",
-                    pattern: "{controller}/{action=en}/{ciudad}/{estado}");
             });
         }
     }

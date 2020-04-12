@@ -19,17 +19,17 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">                        
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="empleos" asp-action="en">Empleos</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="empleos" asp-action="Index">Empleos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="inmuebles" asp-action="en">Inmuebles</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="inmuebles" asp-action="Index">Inmuebles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="vehiculos" asp-action="en">Vehiculos</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="vehiculos" asp-action="Index">Vehiculos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="varios" asp-action="en">Varios</a>
-                        </li>                        
+                            <a class="nav-link text-dark" asp-area="" asp-controller="varios" asp-action="Index">Varios</a>
+                        </li>                                           
                     </ul>                    
                 </div>
             </div>
@@ -48,7 +48,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/lib/knockout/knockout-3.5.1.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

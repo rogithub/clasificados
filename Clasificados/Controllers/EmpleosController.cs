@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using Clasificados.Models;
+using Clasificados.Filters;
 
 namespace Clasificados.Controllers
 {
@@ -13,10 +14,10 @@ namespace Clasificados.Controllers
         {
             Logger = logger;
         }
-        public IActionResult En(string ciudad, string estado)
+
+        [RedirectSinLugar]
+        public IActionResult Index()
         {
-            ViewBag.Estado = estado;
-            ViewBag.Ciudad = ciudad;
             return View();
         }
 

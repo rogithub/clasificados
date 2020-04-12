@@ -18,9 +18,15 @@ export default {
             base: '/varios',
             search: '/varios/search',
             get: '/varios/get',
+        },
+        lugares: {
+            base: '/lugares'
         }
     },
     web: {
+        home: {
+            index: "/home/index"
+        },
         inmuebles: {
             index: "/inmuebles/Index",
             nuevo: "/inmuebles/Nuevo",

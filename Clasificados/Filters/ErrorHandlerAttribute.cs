@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Serilog;
 
-namespace Api.Filters
+namespace Clasificados.Filters
 {
 
     public class ErrorHandlerAttribute : IExceptionFilter, IAsyncExceptionFilter
