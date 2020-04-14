@@ -26,7 +26,7 @@ namespace Repositories
                 v.idCiudad = c.id                
             WHERE 
                 v.activo=TRUE   AND                
-                c.url = @ciudad
+                c.id = @ciudad
                 {0}                 
         ORDER BY 
             v.fecha desc        

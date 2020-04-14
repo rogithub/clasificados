@@ -1,30 +1,30 @@
-using System;
+using System.ComponentModel.DataAnnotations;
+using Entities;
 
-namespace Entities
+namespace Clasificados.Models
 {
     public enum Order
     {
         Asc,
         Desc,
     }
+
     public class OrderCol
     {
+        [Required]
         public string Col { get; set; }
+        [Required]
         public Order Order { get; set; }
-
-        public override string ToString()
-        {
-            return string.Format("{0} {1}", Col,
-            Order == Order.Asc ? "ASC" : "DESC");
-        }
     }
     public class SearchData
     {
-        public string Estado { get; set; }
-        public long CiudadId { get; set; }
         public string Pattern { get; set; }
         public OrderCol[] Columns { get; set; }
+        [Required]
         public int Limit { get; set; }
+        [Required]
         public int Offset { get; set; }
+        [Required]
+        public long CiudadId { get; set; }
     }
 }

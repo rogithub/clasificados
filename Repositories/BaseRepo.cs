@@ -44,7 +44,7 @@ namespace Repositories
             parameters.Add("@limit".ToParam(DbType.Int32, entity.Limit));
             parameters.Add("@offset".ToParam(DbType.Int32, entity.Offset));
             parameters.Add("@estado".ToParam(DbType.String, entity.Estado));
-            parameters.Add("@ciudad".ToParam(DbType.String, entity.Ciudad));
+            parameters.Add("@ciudad".ToParam(DbType.Int64, entity.CiudadId));
             string whereClause = "";
             if (!string.IsNullOrWhiteSpace(entity.Pattern))
             {
@@ -64,9 +64,9 @@ namespace Repositories
             return Db.ExecuteDataReader(cmd, GetResultSet);
         }
 
-        public IObservable<int> Delete(Guid id)
+        public IObservable<int> Delete(Int64 id)
         {
-            var param = "@guid".ToParam(DbType.Guid, id);
+            var param = "@id".ToParam(DbType.Int64, id);
 
             var cmd = DeleteSql.ToCmd(CommandType.Text, param);
 

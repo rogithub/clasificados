@@ -7,7 +7,7 @@ namespace Repositories
     {
         IObservable<T> Get(Int64 id);
         IObservable<Resultset<T>> Search(SearchData entity);
-        IObservable<int> Delete(Guid id);
+        IObservable<int> Delete(Int64 id);
         IObservable<int> Update(T entity);
         IObservable<int> Save(T entity);
     }

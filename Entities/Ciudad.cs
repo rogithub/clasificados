@@ -2,7 +2,7 @@ using System;
 
 namespace Entities
 {
-    public class Ciudad
+    public class Ciudad: ILongId
     {
         public Int64 Id { get; set; }
         public Int64 EstadoId { get; set; }
