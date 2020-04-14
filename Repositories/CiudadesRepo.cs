@@ -8,34 +8,35 @@ using System.Reactive.Linq;
 
 namespace Repositories
 {
-    public interface IEstadosRepo
+    public interface ICiudadesRepo
     {
-        IEnumerable<Estado> GetAll();
+        IEnumerable<Ciudad> GetAll();
     }
 
-    public class EstadosRepo : IEstadosRepo
+    public class CiudadesRepo : ICiudadesRepo
     {
         protected IDatabase Db { get; set; }
 
-        public EstadosRepo(IDatabase db)
+        public CiudadesRepo(IDatabase db)
         {
             this.Db = db;
         }
-        protected Estado GetData(IDataReader dr)
+
+        protected Ciudad GetData(IDataReader dr)
         {
-            return new Estado()
+            return new Ciudad()
             {
                 Id = dr.GetInt("id"),
+                EstadoId = dr.GetInt("idestado"),
                 Url = dr.GetString("url"),
                 Nombre = dr.GetString("nombre")
             };
         }
 
-
-        public IEnumerable<Estado> GetAll()
+        public IEnumerable<Ciudad> GetAll()
         {
-            List<Estado> list = new List<Estado>();
-            var sql = "SELECT * FROM public.estados";
+            List<Ciudad> list = new List<Ciudad>();
+            var sql = "SELECT * FROM public.ciudades";
             var cmd = sql.ToCmd(CommandType.Text);
             var estadosObs = Db.ExecuteDataReader(cmd, GetData);
             estadosObs.Subscribe(it =>

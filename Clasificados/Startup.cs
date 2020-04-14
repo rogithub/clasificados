@@ -57,6 +57,7 @@ namespace Clasificados
             services.AddTransient(typeof(IBaseRepo<Vehiculo>), typeof(VehiculosRepo));
             services.AddTransient(typeof(IBaseRepo<Varios>), typeof(VariosRepo));
             services.AddTransient<IEstadosRepo, EstadosRepo>();
+            services.AddTransient<ICiudadesRepo, CiudadesRepo>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
