@@ -12,7 +12,9 @@ $(() => {
     let component = new Component(ko);
 
     component.register("frm-lugar", FrmLugar, () => {
-        return new FormLugarModel(ko, api, url);
+        let model = new FormLugarModel(ko, api, url);
+        model.load();
+        return model;
     });
 
     ko.applyBindings();

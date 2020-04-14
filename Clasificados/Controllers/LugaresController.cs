@@ -1,9 +1,9 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using Clasificados.Models;
 using Repositories;
 using System.Linq;
+using System.Collections.Generic;
+using Entities;
 
 namespace Clasificados.Controllers
 {
@@ -19,8 +19,7 @@ namespace Clasificados.Controllers
             CiudadesRepo = ciudadesRepo;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        private IEnumerable<Estado> GetLugares()
         {
             var edos = EstadosRepo.GetAll();
             var ciudades = CiudadesRepo.GetAll();
@@ -28,15 +27,41 @@ namespace Clasificados.Controllers
             {
                 e.Ciudades = ciudades.Where(c => c.EstadoId == e.Id).ToArray();
             }
-            return Json(edos);
+            return edos;
         }
 
-        [HttpPost]
-        public IActionResult Post([FromBody] Lugar model)
+        [HttpGet]
+        public IActionResult Get()
         {
-            base.Estado = model.Estado;
-            base.Ciudad = model.Ciudad;
-            return Json(model);
+            var estados = GetLugares();
+
+            var ciudad = estados
+            .SelectMany(e => e.Ciudades)
+            .FirstOrDefault(c => c.Id == base.CiudadId);
+
+            if (ciudad == null)
+            {
+                return null;
+            }
+
+            var estado = estados.FirstOrDefault(e => e.Id == ciudad.EstadoId);
+
+            return Json(new { Estado = estado, Ciudad = ciudad });
+        }
+
+        [HttpGet]
+        [Route("GetAll")]
+        public IActionResult GetAll()
+        {
+            return Json(GetLugares());
+        }
+
+        [HttpPost("{id:int}")]
+        [Route("save/{id}")]
+        public IActionResult Save(int id)
+        {
+            base.CiudadId = id;
+            return Json(id);
         }
     }
 }

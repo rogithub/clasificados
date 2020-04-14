@@ -1,17 +1,16 @@
-import { ObjectLiteral } from '../../shared/objectLiteral';
-import { Lugar } from '../../models/lugar';
+import { Estado, Ciudad } from '../../models/lugar';
 import { Api } from '../../shared/api';
 import urls from '../../constants/serverInfo';
 import { Url } from '../../shared/url';
-import { RequiredString } from '../../validators/requiredString';
+import { PositiveNumber } from '../../validators/positiveNumber';
 import { ObsExtension, ObsFrm, Obs } from 'valiko';
 
 export class Model extends ObsFrm {
 
-    public estados: KnockoutObservableArray<ObjectLiteral>;
-    public ciudades: KnockoutObservableArray<ObjectLiteral>;
-    public ciudad: ObsExtension<string>;
-    public estado: ObsExtension<string>;
+    public estados: KnockoutObservableArray<Estado>;
+    public estado: ObsExtension<number>;
+    public ciudad: ObsExtension<number>;
+    public ciudades: KnockoutComputed<Ciudad[]>;
 
     private api: Api;
     private url: Url;
@@ -20,31 +19,34 @@ export class Model extends ObsFrm {
         super(ko);
         this.url = url;
         this.api = api;
-        this.ciudad = this.add<string>().with(new RequiredString());
-        this.estado = this.add<string>().with(new RequiredString());
-        this.estados = ko.observableArray<ObjectLiteral>([
-            { value: "michoacan", text: "Michoacán" }
-        ]);
+        this.estados = ko.observableArray<Estado>();
+        this.estado = this.add<number>().with(new PositiveNumber());
+        this.ciudad = this.add<number>().with(new PositiveNumber());
+        const self = this;
+        this.ciudades = ko.pureComputed<Ciudad[]>(() => {
+            if (self.estado.value() === -1) {
+                return [];
+            }
 
-        this.ciudades = ko.observableArray<ObjectLiteral>([
-            { value: "uruapan", text: "Uruapan" },
-            { value: "ziracuaretiro", text: "Ziracuaretiro" }
-        ]);
+            let e = ko.utils.arrayFirst(self.estados(), (e) => {
+                return e.id === self.estado.value();
+            });
+
+            if (e === null || e === undefined || e.ciudades === null || e.ciudades === undefined) {
+                return [];
+            }
+
+            return e.ciudades;
+
+        }, self);
 
     }
 
-    public load(m: Lugar): void {
+    public async load(): Promise<void> {
         const self = this;
-        self.ciudad.value(m.ciudad);
-        self.estado.value(m.estado);
-    }
-
-    public retrieve(): Lugar {
-        const self = this;
-        return {
-            ciudad: self.ciudad.value(),
-            estado: self.estado.value()
-        }
+        let url = urls.api.lugares.getAll;
+        let items = await this.api.get<Estado[]>(url);
+        self.estados(items);
     }
 
     public async onSave(): Promise<void> {
@@ -52,10 +54,10 @@ export class Model extends ObsFrm {
         let isValid = await self.validate();
         if (isValid === false) return;
 
-        let url = urls.api.lugares.base;
-        let model = self.retrieve();
+        let url = urls.api.lugares.save;
+        let model = {};
 
-        await this.api.post<void>(url, model);
+        await this.api.post<void>(`${url}/${self.ciudad.value()}`, model);
         self.indexRedirect();
     }
 

@@ -12,10 +12,9 @@ namespace Clasificados.Filters
             {
                 BaseController controller = context.Controller as BaseController;
 
-                string ciudad = controller.Ciudad;
-                string estado = controller.Estado;
+                long ciudad = controller.CiudadId;
 
-                if (string.IsNullOrWhiteSpace(ciudad) || string.IsNullOrWhiteSpace(estado))
+                if (ciudad == -1)
                 {
                     var url = new RouteValueDictionary{
                         { "controller", "Home" },

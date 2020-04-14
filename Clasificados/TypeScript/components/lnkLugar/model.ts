@@ -27,8 +27,8 @@ export class Model {
 
     public load(m: Lugar): void {
         const self = this;
-        self.ciudad(m.ciudad);
-        self.estado(m.estado);
+        self.ciudad(m.ciudad.nombre);
+        self.estado(m.estado.nombre);
     }
 
     public async init(): Promise<void> {

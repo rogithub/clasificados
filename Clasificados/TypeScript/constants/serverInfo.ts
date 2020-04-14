@@ -20,7 +20,9 @@ export default {
             get: '/varios/get',
         },
         lugares: {
-            base: '/lugares'
+            base: '/lugares',
+            save: '/lugares/save',
+            getAll: '/lugares/GetAll'
         }
     },
     web: {
