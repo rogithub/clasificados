@@ -1,9 +1,9 @@
 
- <div class="container" data-bind="visible: visible">
+ <div class="container" data-bind="if: hasCity">
     <!-- ko foreach: list -->
     <div class="row">
       <div class="col-md-12">        
-        <p data-bind="text: description">
+        <p data-bind="text: descripcion">
             
         </p>
       </div>

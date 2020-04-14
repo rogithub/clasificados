@@ -16,8 +16,9 @@ $(() => {
     });
 
     component.register("lst-varios", ListVariosView, (params) => {
-        let model = new ListVariosModel(ko, $, api, url);
+        let model = new ListVariosModel(ko, $, api);
         model.init(params.ciudadId);
+        return model;
     });
 
     ko.applyBindings();
