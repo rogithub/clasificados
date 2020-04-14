@@ -12,6 +12,7 @@ using Serilog;
 
 namespace Clasificados.Controllers
 {
+    [Route("[controller]")]
     public abstract class ApiBaseController<TEntity, TModel>
     : BaseController
     where TEntity : ILongId
@@ -45,7 +46,7 @@ namespace Clasificados.Controllers
         [Route("search")]
         [HttpPost()]
         public async Task<ActionResult<Resultset<IEnumerable<TModel>>>> Search
-        (Models.SearchData model)
+        ([FromBody] Models.SearchData model)
         {
             var entity = Mapper.Map<Entities.SearchData>(model);
             var rs = Repo.Search(entity).ToAsyncEnumerable();
@@ -63,8 +64,9 @@ namespace Clasificados.Controllers
             return Ok(result);
         }
 
+        [Route("save")]
         [HttpPost()]
-        public async Task<ActionResult<TModel>> Post(TModel model)
+        public async Task<ActionResult<TModel>> Save([FromBody] TModel model)
         {
             var entity = await Repo.Get(model.Id).FirstOrDefaultAsync();
             if (entity != null) return BadRequest("Already exists!");
@@ -82,7 +84,7 @@ namespace Clasificados.Controllers
         }
 
         [HttpPut()]
-        public async Task<ActionResult<int>> Put(TModel model)
+        public async Task<ActionResult<int>> Put([FromBody] TModel model)
         {
             var entity = await Repo.Get(model.Id).FirstOrDefaultAsync();
             if (entity == null) return NotFound();

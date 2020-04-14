@@ -43,7 +43,6 @@ namespace Repositories
             List<IDbDataParameter> parameters = new List<IDbDataParameter>();
             parameters.Add("@limit".ToParam(DbType.Int32, entity.Limit));
             parameters.Add("@offset".ToParam(DbType.Int32, entity.Offset));
-            parameters.Add("@estado".ToParam(DbType.String, entity.Estado));
             parameters.Add("@ciudad".ToParam(DbType.Int64, entity.CiudadId));
             string whereClause = "";
             if (!string.IsNullOrWhiteSpace(entity.Pattern))

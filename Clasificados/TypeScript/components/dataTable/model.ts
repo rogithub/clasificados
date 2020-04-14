@@ -66,6 +66,7 @@ export class Model<T> {
     load = async () => {
 
         let data: SearchData = {
+            ciudadId: 0,
             limit: this.pagination.pageSize(),
             offset: (this.pagination.page() - 1),
             columns: this.sorting(),

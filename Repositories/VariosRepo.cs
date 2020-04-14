@@ -19,11 +19,11 @@ namespace Repositories
         public.varios WHERE id=@id AND activo=TRUE;";
         protected override string SerchSql =>
         @"SELECT 
-            v.id, v.idCiudad, v.descripcion, v.fecha, v.activo
+            v.id, v.idciudad, v.descripcion, v.fecha, v.activo,
             COUNT(*) OVER() as total_rows 
         FROM 
             public.varios v inner join public.ciudades c on 
-                v.idCiudad = c.id                
+                v.idciudad = c.id                
             WHERE 
                 v.activo=TRUE   AND                
                 c.id = @ciudad

@@ -24,6 +24,7 @@ namespace Clasificados.Controllers
         [RedirectSinLugar]
         public IActionResult Index()
         {
+            ViewBag.CiudadId = base.CiudadId;
             return View();
         }
     }

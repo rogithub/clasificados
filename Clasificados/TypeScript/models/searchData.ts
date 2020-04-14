@@ -7,6 +7,7 @@ export interface OrderCol {
 export interface SearchData {
     limit: number;
     offset: number;
+    ciudadId: number;
     pattern?: string;
     columns?: OrderCol[];
 }

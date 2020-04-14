@@ -40,6 +40,7 @@ public class BaseController : Controller
         }
     }
 
+    [Route("Error")]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

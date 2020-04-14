@@ -18,13 +18,14 @@ namespace Clasificados.Models
     }
     public class SearchData
     {
+
+        [Required]
+        public long CiudadId { get; set; }
         public string Pattern { get; set; }
         public OrderCol[] Columns { get; set; }
         [Required]
         public int Limit { get; set; }
         [Required]
         public int Offset { get; set; }
-        [Required]
-        public long CiudadId { get; set; }
     }
 }
