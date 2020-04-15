@@ -108,7 +108,7 @@ export class Model extends ObsFrm {
 
         url = `${urls.api.lugares.base}`;
         let model = await self.api.get<Lugar>(url);
-        if (model !== null && model !== undefined) {
+        if (model.hasValue) {
             self.estado.value(model.estado.id);
             self.ciudad.value(model.ciudad.id);
         }

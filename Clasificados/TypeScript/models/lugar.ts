@@ -13,6 +13,7 @@ export interface Estado {
 }
 
 export interface Lugar {
+    hasValue: boolean;
     estado: Estado;
     ciudad: Ciudad;
 }

@@ -16,13 +16,6 @@ namespace Clasificados.Filters
         {
             if (context.ExceptionHandled == false)
             {
-                var ignore =
-                context.Exception.Message.Contains("Cannot return null from an action method with a return type of 'Microsoft.AspNetCore.Mvc.IActionResult'");
-
-                if (ignore)
-                {
-                    return Task.CompletedTask;
-                }
                 Logger.Error(context.Exception, "Uncaught async exception");
             }
 

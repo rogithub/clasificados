@@ -42,12 +42,12 @@ namespace Clasificados.Controllers
 
             if (ciudad == null)
             {
-                return null;
+                return Json(new { HasValue = false });
             }
 
             var estado = estados.FirstOrDefault(e => e.Id == ciudad.EstadoId);
 
-            return Json(new { Estado = estado, Ciudad = ciudad });
+            return Json(new { HasValue = true, Estado = estado, Ciudad = ciudad });
         }
 
         [HttpGet]
