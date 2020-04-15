@@ -1,4 +1,4 @@
-import { Estado, Ciudad } from '../../models/lugar';
+import { Estado, Ciudad, Lugar } from '../../models/lugar';
 import { TipoAnuncio, AnunciosDescripcion } from '../../models/tiposAnuncio';
 import { Api } from '../../shared/api';
 import urls from '../../constants/serverInfo';
@@ -104,6 +104,14 @@ export class Model extends ObsFrm {
         let url = urls.api.lugares.getAll;
         let items = await this.api.get<Estado[]>(url);
         self.estados(items);
+
+
+        url = `${urls.api.lugares.base}`;
+        let model = await self.api.get<Lugar>(url);
+        if (model !== null && model !== undefined) {
+            self.estado.value(model.estado.id);
+            self.ciudad.value(model.ciudad.id);
+        }
     }
 
     private getSaveUrl = () => {
