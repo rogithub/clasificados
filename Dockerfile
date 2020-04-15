@@ -10,11 +10,7 @@ COPY Repositories/*.csproj ./Repositories/
 RUN dotnet restore
 
 # copy everything else and build app
-COPY Clasificados/. ./Clasificados/
-COPY Entities/. ./Entities/
-COPY ReactiveDb/. ./ReactiveDb/
-COPY Repositories/. ./Repositories/
-
+COPY . ./
 WORKDIR /app/Clasificados
 RUN dotnet publish -c Release -o out
 
