@@ -93,10 +93,10 @@ namespace Repositories
             return new Dictionary<string, IDbDataParameter>() {
                 { "@id", "@id".ToParam(DbType.Int64, model.Id) },
                 { "@idciudad", "@idciudad".ToParam(DbType.Int64, model.CiudadId) },
-                { "@ventarenta", "@ventarenta".ToParam(DbType.Int32, model.VentaRenta) },
-                { "@casaterreno", "@casaterreno".ToParam(DbType.Int32, model.CasaTerreno) },
+                { "@ventarenta", "@ventarenta".ToParam(DbType.Int16, (Int16)model.VentaRenta) },
+                { "@casaterreno", "@casaterreno".ToParam(DbType.Int16, (Int16)model.CasaTerreno) },
                 { "@descripcion", "@descripcion".ToParam(DbType.String, model.Descripcion) },
-                { "@fechacreado", "@fechacreado".ToParam(DbType.DateTime, model.Fecha) },
+                { "@fecha", "@fecha".ToParam(DbType.DateTime, model.Fecha) },
                 { "@activo", "@activo".ToParam(DbType.Boolean, model.Activo) }
             };
         }

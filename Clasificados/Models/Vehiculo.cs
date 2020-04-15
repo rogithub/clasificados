@@ -11,6 +11,6 @@ namespace Clasificados.Models
         [Required]
         public string Modelo { get; set; }
         [Required]
-        public string Año { get; set; }
+        public int Año { get; set; }
     }
 }

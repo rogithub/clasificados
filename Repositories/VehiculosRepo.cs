@@ -56,7 +56,7 @@ namespace Repositories
                 CiudadId = dr.GetInt("idciudad"),
                 Marca = dr.GetString("marca"),
                 Modelo = dr.GetString("modelo"),
-                Año = dr.GetString("año"),
+                Año = dr.GetInt("año"),
                 Fecha = dr.GetDate("fecha"),
                 Activo = dr.GetValue<bool>("activo"),
                 Descripcion = dr.GetString("descripcion")
@@ -98,7 +98,7 @@ namespace Repositories
                 { "@idciudad", "@idciudad".ToParam(DbType.Int64, model.CiudadId) },
                 { "@marca", "@marca".ToParam(DbType.String, model.Marca) },
                 { "@modelo", "@modelo".ToParam(DbType.String, model.Modelo) },
-                { "@año", "@año".ToParam(DbType.String, model.Año) },
+                { "@año", "@año".ToParam(DbType.Int32, model.Año) },
                 { "@descripcion", "@descripcion".ToParam(DbType.String, model.Descripcion) },
                 { "@fecha", "@fecha".ToParam(DbType.DateTime, model.Fecha) },
                 { "@activo", "@activo".ToParam(DbType.Boolean, model.Activo) }

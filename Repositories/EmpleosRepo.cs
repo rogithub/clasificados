@@ -73,6 +73,7 @@ namespace Repositories
         {
             var d = ToParams(model);
             return new IDbDataParameter[] {
+                d["@idciudad"],
                 d["@descripcion"],
                 d["@fecha"],
                 d["@activo"]
