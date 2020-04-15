@@ -7,6 +7,7 @@ using Entities;
 
 namespace Clasificados.Controllers
 {
+    [ApiController]
     [Route("[controller]")]
     public class ApiLugaresController : BaseController
     {
@@ -61,7 +62,7 @@ namespace Clasificados.Controllers
         public IActionResult Save(int id)
         {
             base.CiudadId = id;
-            return Json(id);
+            return Json(new { CiudadId = id });
         }
     }
 }

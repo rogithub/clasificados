@@ -12,6 +12,7 @@ using Serilog;
 
 namespace Clasificados.Controllers
 {
+    [ApiController]
     [Route("[controller]")]
     public abstract class ApiBaseController<TEntity, TModel>
     : BaseController

@@ -263,7 +263,7 @@ export class Model extends ObsFrm {
 
         await this.api.post<any>(`${url}`, model);
 
-        // Set lugar
+        // Guardar lugar
         url = urls.api.lugares.save;
         await this.api.post<any>(`${url}/${self.ciudad.value()}`, {});
 
