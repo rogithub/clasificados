@@ -1,0 +1,88 @@
+<form data-bind="submit: $data.onSave.bind($data)" novalidate>
+
+    <div class="form-row">
+        <div class="col-md-12 mb-3">
+
+            <label>Estado</label>
+            <select class="form-control" data-bind="options: estados,
+                       optionsText: 'nombre',
+                       optionsValue: 'id',
+                       value: estado.value,
+                       optionsCaption: 'Estado...', 
+                       css: { 
+                           'is-invalid': estado.hasError(),
+                           'is-valid': !estado.hasError() && estado.wasValidated() 
+                       }"></select>
+
+            <div class="invalid-feedback">
+                <!-- ko foreach: estado.errors -->
+                <span data-bind="text: $data"></span>
+                <!-- /ko -->
+            </div>
+
+        </div>
+        <div class="col-md-12 mb-3">
+
+            <label>Ciudad</label>
+            <select class="form-control" data-bind="options: ciudades,
+                       optionsText: 'nombre',
+                       optionsValue: 'id',
+                       value: ciudad.value,
+                       optionsCaption: 'Ciudad...', 
+                       css: { 
+                           'is-invalid': ciudad.hasError(),
+                           'is-valid': !ciudad.hasError() && ciudad.wasValidated() 
+                       }"></select>
+
+            <div class="invalid-feedback">
+                <!-- ko foreach: ciudad.errors -->
+                <span data-bind="text: $data"></span>
+                <!-- /ko -->
+            </div>
+        </div>
+
+        <div class="col-md-12 mb-3">
+
+            <label>Tipo de anuncio</label>
+            <select class="form-control" data-bind="options: tipos,
+                       optionsText: 'desc',
+                       optionsValue: 'tipo',
+                       value: tipo.value,
+                       optionsCaption: 'Tipo de anuncio...', 
+                       css: { 
+                           'is-invalid': tipo.hasError(),
+                           'is-valid': !tipo.hasError() && tipo.wasValidated() 
+                       }"></select>
+
+            <div class="invalid-feedback">
+                <!-- ko foreach: tipo.errors -->
+                <span data-bind="text: $data"></span>
+                <!-- /ko -->
+            </div>
+        </div>
+
+        <h2 data-bind="text: tipoDesc"></h2>
+
+        <div class="col-md-12 mb-3">
+            <label>Anuncio</label>
+            <label data-bind="text: letrasRestantes() + ' letras restantes'"></label>
+            <textarea class="form-control" maxlength="500" rows="5" data-bind="
+                css: { 
+                    'is-invalid': descripcion.hasError(),
+                    'is-valid': !descripcion.hasError() && descripcion.wasValidated() 
+                },
+                textInput: descripcion.value"></textarea>
+            <div class="invalid-feedback">
+                <!-- ko foreach: descripcion.errors -->
+                <span data-bind="text: $data"></span>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+
+    <div class="text-right">
+        <button class="btn btn-secondary" data-bind="click: $data.indexRedirect.bind($data)"
+            type="button">Cancelar</button>
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </div>
+</form>

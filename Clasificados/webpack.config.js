@@ -6,7 +6,8 @@ module.exports = {
         inmuebles: './TypeScript/pages/inmuebles.ts',
         varios: './TypeScript/pages/varios.ts',
         vehiculos: './TypeScript/pages/vehiculos.ts',
-        lugares: './TypeScript/pages/lugares.ts'
+        lugares: './TypeScript/pages/lugares.ts',
+        anunciar: './TypeScript/pages/anunciar.ts'
     },
     mode: 'production',
     optimization: {

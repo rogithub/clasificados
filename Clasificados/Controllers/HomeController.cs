@@ -23,5 +23,10 @@ namespace Clasificados.Controllers
         {
             return View();
         }
+
+        public IActionResult Anunciar()
+        {
+            return View();
+        }
     }
 }

@@ -1,16 +1,19 @@
-
 <div class="container" data-bind="if:  ciudadId() > 0">
-   <search-field params="model: searchModel"></search-field>
+    <search-field params="model: searchModel"></search-field>
+
+    <h2 data-bind="if: list().length === 0">No se encontraron resultados</h2>
+    <p data-bind="if: list().length === 0">Seleccione otra ciudad o busque con diferentes palabras</p>
+
     <!-- ko foreach: list -->
     <div class="row">
-      <div class="col-md-12">        
-        <p data-bind="text: descripcion">
-            
-        </p>
-      </div>
+        <div class="col-md-12">
+            <p data-bind="text: descripcion">
+
+            </p>
+        </div>
     </div>
     <hr />
     <!-- /ko -->
+
     <pagination params="model: pagination"></pagination>
 </div>
-

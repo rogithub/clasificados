@@ -27,7 +27,7 @@ namespace Clasificados.Controllers
             {
                 e.Ciudades = ciudades.Where(c => c.EstadoId == e.Id).ToArray();
             }
-            return edos;
+            return (from e in edos where e.Ciudades.Length > 0 select e);
         }
 
         [HttpGet]
