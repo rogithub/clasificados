@@ -27,7 +27,8 @@ namespace Clasificados
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                // One day session
+                options.IdleTimeout = TimeSpan.FromDays(1);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
@@ -80,9 +81,11 @@ namespace Clasificados
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSession();
-
             app.UseRouting();
+
+            // call UseSession after UseRouting()
+            app.UseSession();
+            // and beffore UseEndpoints()
 
             app.UseAuthorization();
 
