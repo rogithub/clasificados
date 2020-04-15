@@ -3,16 +3,23 @@ WORKDIR /app
 
 # copy csproj and restore as distinct layers
 COPY *.sln .
-COPY aspnetapp/*.csproj ./aspnetapp/
+COPY Clasificados/*.csproj ./Clasificados/
+COPY Entities/*.csproj ./Entities/
+COPY ReactiveDb/*.csproj ./ReactiveDb/
+COPY Repositories/*.csproj ./Repositories/
 RUN dotnet restore
 
 # copy everything else and build app
-COPY aspnetapp/. ./aspnetapp/
-WORKDIR /app/aspnetapp
+COPY Clasificados/. ./Clasificados/
+COPY Entities/. ./Entities/
+COPY ReactiveDb/. ./ReactiveDb/
+COPY Repositories/. ./Repositories/
+
+WORKDIR /app/Clasificados
 RUN dotnet publish -c Release -o out
 
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
 WORKDIR /app
-COPY --from=build /app/aspnetapp/out ./
-ENTRYPOINT ["dotnet", "aspnetapp.dll"]
+COPY --from=build /app/Clasificados/out ./
+ENTRYPOINT ["dotnet", "Clasificados.dll"]
