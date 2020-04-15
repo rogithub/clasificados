@@ -13,15 +13,15 @@ namespace Repositories
         }
 
         protected override string GetByIdSql =>
-        @"SELECT id, idCiudad, marca, modelo, año, descripcion, fecha, activo
+        @"SELECT id, idciudad, marca, modelo, año, descripcion, fecha, activo
         FROM public.vehiculos WHERE id=@id AND activo=TRUE;";
         protected override string SerchSql =>
         @"SELECT 
-            v.id, v.idCiudad, v.marca, v.modelo, v.año, v.descripcion, v.fecha, v.activo
+            v.id, v.idciudad, v.marca, v.modelo, v.año, v.descripcion, v.fecha, v.activo
             COUNT(*) OVER() as total_rows 
         FROM 
             public.vehiculos v inner join public.ciudades c on 
-                v.idCiudad = c.id       
+                v.idciudad = c.id       
             WHERE 
                 v.activo=TRUE   AND                
                 c.url = @ciudad
@@ -44,16 +44,16 @@ namespace Repositories
 
         protected override string SaveSql =>
         @"INSERT INTO public.vehiculos 
-            (idCiudad, marca, modelo, año, descripcion, fecha, activo) 
+            (idciudad, marca, modelo, año, descripcion, fecha, activo) 
             VALUES 
-            (@idCiudad, @marca, @modelo, @año, @descripcion, @fecha, @activo);";
+            (@idciudad, @marca, @modelo, @año, @descripcion, @fecha, @activo);";
 
         protected override Vehiculo GetData(IDataReader dr)
         {
             return new Vehiculo()
             {
                 Id = dr.GetInt("id"),
-                CiudadId = dr.GetInt("idCiudad"),
+                CiudadId = dr.GetInt("idciudad"),
                 Marca = dr.GetString("marca"),
                 Modelo = dr.GetString("modelo"),
                 Año = dr.GetString("año"),
@@ -68,7 +68,7 @@ namespace Repositories
             var d = ToParams(model);
             return new IDbDataParameter[] {
                 d["@id"],
-                d["@idCiudad"],
+                d["@idciudad"],
                 d["@marca"],
                 d["@modelo"],
                 d["@año"],
@@ -81,7 +81,7 @@ namespace Repositories
         {
             var d = ToParams(model);
             return new IDbDataParameter[] {
-                d["@idCiudad"],
+                d["@idciudad"],
                 d["@marca"],
                 d["@modelo"],
                 d["@año"],
@@ -95,12 +95,12 @@ namespace Repositories
         {
             return new Dictionary<string, IDbDataParameter>() {
                 { "@id", "@id".ToParam(DbType.Int64, model.Id) },
-                { "@idCiudad", "@idCiudad".ToParam(DbType.Int64, model.CiudadId) },
+                { "@idciudad", "@idciudad".ToParam(DbType.Int64, model.CiudadId) },
                 { "@marca", "@marca".ToParam(DbType.String, model.Marca) },
                 { "@modelo", "@modelo".ToParam(DbType.String, model.Modelo) },
                 { "@año", "@año".ToParam(DbType.String, model.Año) },
                 { "@descripcion", "@descripcion".ToParam(DbType.String, model.Descripcion) },
-                { "@fechacreado", "@fechacreado".ToParam(DbType.DateTime, model.Fecha) },
+                { "@fecha", "@fecha".ToParam(DbType.DateTime, model.Fecha) },
                 { "@activo", "@activo".ToParam(DbType.Boolean, model.Activo) }
             };
         }

@@ -14,7 +14,7 @@ namespace Repositories
         }
 
         protected override string GetByIdSql =>
-        @"SELECT id, idCiudad, descripcion, fecha, activo
+        @"SELECT id, idciudad, descripcion, fecha, activo
             FROM 
         public.varios WHERE id=@id AND activo=TRUE;";
         protected override string SerchSql =>
@@ -43,16 +43,16 @@ namespace Repositories
 
         protected override string SaveSql =>
         @"INSERT INTO public.varios 
-            (idCiudad, descripcion, fecha, activo) 
+            (idciudad, descripcion, fecha, activo) 
             VALUES 
-            (@idCiudad, @descripcion, @fecha, @activo);";
+            (@idciudad, @descripcion, @fecha, @activo);";
 
         protected override Varios GetData(IDataReader dr)
         {
             return new Varios()
             {
                 Id = dr.GetInt("id"),
-                CiudadId = dr.GetInt("idCiudad"),
+                CiudadId = dr.GetInt("idciudad"),
                 Fecha = dr.GetDate("fecha"),
                 Activo = dr.GetValue<bool>("activo"),
                 Descripcion = dr.GetString("descripcion")
@@ -64,7 +64,7 @@ namespace Repositories
             var d = ToParams(model);
             return new IDbDataParameter[] {
                 d["@id"],
-                d["@idCiudad"],
+                d["@idciudad"],
                 d["@descripcion"],
                 d["@fecha"],
             };
@@ -74,7 +74,7 @@ namespace Repositories
         {
             var d = ToParams(model);
             return new IDbDataParameter[] {
-                d["@idCiudad"],
+                d["@idciudad"],
                 d["@descripcion"],
                 d["@fecha"],
                 d["@activo"]
@@ -85,7 +85,7 @@ namespace Repositories
         {
             return new Dictionary<string, IDbDataParameter>() {
                 { "@id", "@id".ToParam(DbType.Int64, model.Id) },
-                { "@idCiudad", "@idCiudad".ToParam(DbType.Int64, model.CiudadId) },
+                { "@idciudad", "@idciudad".ToParam(DbType.Int64, model.CiudadId) },
                 { "@descripcion", "@descripcion".ToParam(DbType.String, model.Descripcion) },
                 { "@fechacreado", "@fechacreado".ToParam(DbType.DateTime, model.Fecha) },
                 { "@activo", "@activo".ToParam(DbType.Boolean, model.Activo) }
