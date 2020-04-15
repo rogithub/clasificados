@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Entities;
@@ -15,10 +16,43 @@ namespace Clasificados.Controllers
     [ApiController]
     [Route("[controller]")]
     public abstract class ApiBaseController<TEntity, TModel>
-    : BaseController
+    : ControllerBase
     where TEntity : ILongId, IFecha
     where TModel : ILongId, IFecha
     {
+
+        protected ILogger Logger { get; set; }
+        public ApiBaseController(ILogger logger)
+        {
+            Logger = logger;
+        }
+
+        private byte[] ToBytes(string text)
+        {
+            var utf8 = new UTF8Encoding();
+            return utf8.GetBytes(text);
+        }
+        private string FromBytes(byte[] arr)
+        {
+            if (arr == null) return string.Empty;
+            return System.Text.Encoding.UTF8.GetString(arr).Trim();
+        }
+
+        public long CiudadId
+        {
+            get
+            {
+                byte[] ciudad = new byte[8];
+                return HttpContext.Session.TryGetValue("Ciudad", out ciudad) ?
+                BitConverter.ToInt64(ciudad) :
+                -1;
+            }
+            set
+            {
+                HttpContext.Session.Set("Ciudad", BitConverter.GetBytes(value));
+            }
+        }
+
         protected IBaseRepo<TEntity> Repo { get; }
         protected IMapper Mapper { get; }
         protected LinkGenerator LinkGen { get; }
@@ -27,8 +61,9 @@ namespace Clasificados.Controllers
             ILogger logger,
             IBaseRepo<TEntity> repo,
             IMapper mapper,
-            LinkGenerator linkGen) : base(logger)
+            LinkGenerator linkGen)
         {
+            Logger = logger;
             Repo = repo;
             Mapper = mapper;
             LinkGen = linkGen;
