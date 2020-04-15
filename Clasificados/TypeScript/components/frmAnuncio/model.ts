@@ -261,7 +261,12 @@ export class Model extends ObsFrm {
         let url = self.getSaveUrl();
         let model = self.getModel();
 
-        await this.api.post<void>(`${url}`, model);
+        await this.api.post<any>(`${url}`, model);
+
+        // Set lugar
+        url = urls.api.lugares.save;
+        await this.api.post<any>(`${url}/${self.ciudad.value()}`, {});
+
         self.indexRedirect();
     }
 
