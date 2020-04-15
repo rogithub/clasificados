@@ -213,7 +213,7 @@ export class Model extends ObsFrm {
                     id: 0,
                     marca: self.marca.value(),
                     modelo: self.modelo.value(),
-                    año: self.año.value(),
+                    año: parseInt(self.año.value().toString()),
                     fecha: now,
                     activo: true,
                     ciudadId: self.ciudad.value(),
