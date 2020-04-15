@@ -26,7 +26,7 @@ namespace Clasificados.Controllers
             ILogger logger,
             IBaseRepo<TEntity> repo,
             IMapper mapper,
-            LinkGenerator linkGen): base(logger)
+            LinkGenerator linkGen) : base(logger)
         {
             Repo = repo;
             Mapper = mapper;

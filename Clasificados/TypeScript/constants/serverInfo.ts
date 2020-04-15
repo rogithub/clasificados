@@ -2,27 +2,29 @@ export default {
     host: "https://localhost:5001",
     api: {
         inmuebles: {
-            base: '/inmuebles',
-            get: '/inmuebles/get'
+            base: '/apiinmuebles',
+            search: '/apiinmuebles/search',
+            get: '/apiinmuebles/get'
         },
         vehiculos: {
-            base: '/vehiculos',
-            get: '/vehiculos/get',
+            base: '/apivehiculos',
+            search: '/apivehiculos/search',
+            get: '/apivehiculos/get',
         },
         empleos: {
-            base: '/empleos',
-            search: '/empleos/search',
-            get: '/empleos/get',
+            base: '/apiempleos',
+            search: '/apiempleos/search',
+            get: '/apiempleos/get',
         },
         varios: {
-            base: '/varios',
-            search: '/varios/search',
-            get: '/varios/get',
+            base: '/apivarios',
+            search: '/apivarios/search',
+            get: '/apivarios/get',
         },
         lugares: {
-            base: '/lugares',
-            save: '/lugares/save',
-            getAll: '/lugares/GetAll'
+            base: '/apilugares',
+            save: '/apilugares/save',
+            getAll: '/apilugares/GetAll'
         }
     },
     web: {

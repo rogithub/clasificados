@@ -8,12 +8,12 @@ using Entities;
 namespace Clasificados.Controllers
 {
     [Route("[controller]")]
-    public class LugaresController : BaseController
+    public class ApiLugaresController : BaseController
     {
 
         private IEstadosRepo EstadosRepo { get; set; }
         private ICiudadesRepo CiudadesRepo { get; set; }
-        public LugaresController(ILogger logger, IEstadosRepo estadosRepo, ICiudadesRepo ciudadesRepo) : base(logger)
+        public ApiLugaresController(ILogger logger, IEstadosRepo estadosRepo, ICiudadesRepo ciudadesRepo) : base(logger)
         {
             EstadosRepo = estadosRepo;
             CiudadesRepo = ciudadesRepo;
