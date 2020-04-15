@@ -1,5 +1,6 @@
 
- <div class="container" data-bind="if: hasCity">
+<div class="container" data-bind="if:  ciudadId() > 0">
+   <search-field params="model: searchModel"></search-field>
     <!-- ko foreach: list -->
     <div class="row">
       <div class="col-md-12">        
@@ -10,4 +11,6 @@
     </div>
     <hr />
     <!-- /ko -->
+    <pagination params="model: pagination"></pagination>
 </div>
+
