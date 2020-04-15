@@ -17,14 +17,14 @@ namespace Repositories
         FROM public.vehiculos WHERE id=@id AND activo=TRUE;";
         protected override string SerchSql =>
         @"SELECT 
-            v.id, v.idciudad, v.marca, v.modelo, v.año, v.descripcion, v.fecha, v.activo
+            v.id, v.idciudad, v.marca, v.modelo, v.año, v.descripcion, v.fecha, v.activo,
             COUNT(*) OVER() as total_rows 
         FROM 
             public.vehiculos v inner join public.ciudades c on 
                 v.idciudad = c.id       
             WHERE 
                 v.activo=TRUE   AND                
-                c.url = @ciudad
+                c.id = @ciudad
                 {0}                 
         ORDER BY 
             v.fecha desc

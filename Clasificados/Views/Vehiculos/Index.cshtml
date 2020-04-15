@@ -1,7 +1,11 @@
 @{
     ViewData["Title"] = "Vehículos";
 }
+@section Scripts {
+    <script type="text/javascript" src="~/js/shared.js"></script>
+    <script type="text/javascript" src="~/js/vehiculos.js"></script>
+}
+<h1>Vehículos</h1>
+<lnk-lugar></lnk-lugar>
 
-<div class="container">
-    <h1>Vehículos</h1>
-</div>
+<lst-vehiculos params="ciudadId: @ViewBag.CiudadId"></lst-vehiculos>
