@@ -27,7 +27,7 @@ $(() => {
     });
 
     component.register("lst-empleos", ListaView, (p) => {
-        return new ListaModel<Empleo>(ko, api, urls.api.empleos.search, p.ciudadId);
+        return new ListaModel<Empleo>(ko, api, urls.api.empleos.search, p.ciudadId, "default-row-template");
     });
 
     ko.applyBindings();

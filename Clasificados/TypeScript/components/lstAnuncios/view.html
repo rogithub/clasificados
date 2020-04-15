@@ -5,6 +5,15 @@
     <p data-bind="if: list().length === 0">Seleccione otra ciudad o busque con diferentes palabras</p>
 
     <!-- ko foreach: list -->
+    <!-- ko template: { name: templateName(), data: $data } -->
+    <!-- /ko -->
+    <hr />
+    <!-- /ko -->
+
+    <pagination params="model: pagination"></pagination>
+</div>
+
+<script type="text/html" id="default-row-template">
     <div class="row">
         <div class="col-md-12">
             <p data-bind="text: descripcion">
@@ -12,8 +21,4 @@
             </p>
         </div>
     </div>
-    <hr />
-    <!-- /ko -->
-
-    <pagination params="model: pagination"></pagination>
-</div>
+</script>

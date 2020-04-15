@@ -10,10 +10,11 @@ export class Model<T> {
     public searchModel: SearchFieldModel;
     public pagination: PaginationModel;
     public ciudadId: KnockoutObservable<number>;
-    public list: KnockoutObservableArray<T>;    
+    public list: KnockoutObservableArray<T>;
     private api: Api;
+    public templateName: KnockoutObservable<string>;
 
-    constructor(ko: KnockoutStatic, api: Api, searchUrl: string, ciudadId: number) {
+    constructor(ko: KnockoutStatic, api: Api, searchUrl: string, ciudadId: number, template: string) {
         this.api = api;
         this.list = ko.observableArray<T>();
         this.ciudadId = ko.observable<number>(ciudadId);
@@ -25,6 +26,8 @@ export class Model<T> {
         this.pagination.pageSize.subscribe(this.change);
         this.searchModel.searchText.subscribe(this.change);
         this.change();
+
+        this.templateName = ko.observable<string>(template);
     }
 
     public change = async () => {

@@ -27,7 +27,7 @@ $(() => {
     });
 
     component.register("lst-varios", ListVariosView, (p) => {
-        return new ListVariosModel<Varios>(ko, api, urls.api.varios.search, p.ciudadId);       
+        return new ListVariosModel<Varios>(ko, api, urls.api.varios.search, p.ciudadId, "default-row-template");
     });
 
     ko.applyBindings();
