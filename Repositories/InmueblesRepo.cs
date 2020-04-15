@@ -19,7 +19,7 @@ namespace Repositories
         public.inmuebles WHERE id=@id AND activo=TRUE;";
         protected override string SerchSql =>
         @"SELECT 
-            v.id, v.idciudad, v.ventarenta, v.casaterreno, v.descripcion, v.fecha, v.activo
+            v.id, v.idciudad, v.ventarenta, v.casaterreno, v.descripcion, v.fecha, v.activo,
             COUNT(*) OVER() as total_rows 
         FROM 
             public.inmuebles v inner join public.ciudades c on 
