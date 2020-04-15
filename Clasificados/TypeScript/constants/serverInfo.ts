@@ -4,21 +4,25 @@ export default {
         inmuebles: {
             base: '/apiinmuebles',
             search: '/apiinmuebles/search',
+            save: '/apiinmuebles/save',
             get: '/apiinmuebles/get'
         },
         vehiculos: {
             base: '/apivehiculos',
             search: '/apivehiculos/search',
+            save: '/apivehiculos/save',
             get: '/apivehiculos/get',
         },
         empleos: {
             base: '/apiempleos',
             search: '/apiempleos/search',
+            save: '/apiempleos/save',
             get: '/apiempleos/get',
         },
         varios: {
             base: '/apivarios',
             search: '/apivarios/search',
+            save: '/apivarios/save',
             get: '/apivarios/get',
         },
         lugares: {
@@ -33,24 +37,16 @@ export default {
             lugar: "/home/lugar"
         },
         inmuebles: {
-            index: "/inmuebles/Index",
-            nuevo: "/inmuebles/Nuevo",
-            editar: "/inmuebles/Editar"
+            index: "/inmuebles/Index"
         },
         vehiculos: {
-            index: "/vehiculos/Index",
-            nuevo: "/vehiculos/Nuevo",
-            editar: "/vehiculos/Editar"
+            index: "/vehiculos/Index"
         },
         empleos: {
-            index: "/empleos/Index",
-            nuevo: "/empleos/Nuevo",
-            editar: "/empleos/Editar"
+            index: "/empleos/Index"
         },
         varios: {
-            index: "/varios/Index",
-            nuevo: "/varios/Nuevo",
-            editar: "/varios/Editar"
+            index: "/varios/Index"
         }
     }
 

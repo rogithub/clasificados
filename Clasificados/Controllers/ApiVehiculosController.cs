@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Routing;
 
 namespace Clasificados.Controllers
 {
-    public class ApiVariosController : ApiBaseController<Entities.Varios, Models.Varios>
+    public class ApiVehiculosController : ApiBaseController<Entities.Vehiculo, Models.Vehiculo>
     {
-        public ApiVariosController(ILogger logger,
-            IBaseRepo<Entities.Varios> repo,
+        public ApiVehiculosController(ILogger logger,
+            IBaseRepo<Entities.Vehiculo> repo,
             IMapper mapper,
             LinkGenerator linkGen) :
          base(logger, repo, mapper, linkGen)

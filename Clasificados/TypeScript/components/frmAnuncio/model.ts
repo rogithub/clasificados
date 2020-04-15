@@ -7,6 +7,11 @@ import { PositiveNumber } from '../../validators/positiveNumber';
 import { RequiredString } from '../../validators/requiredString';
 import { ObsExtension, ObsFrm, Obs } from 'valiko';
 
+import { Empleo } from '../../models/empleo';
+import { Inmueble, CasaTerreno, VentaRenta } from '../../models/inmueble';
+import { Varios } from '../../models/varios';
+import { Vehiculo } from '../../models/vehiculo';
+
 export class Model extends ObsFrm {
 
     public tipoDesc: KnockoutComputed<string>;
@@ -18,6 +23,10 @@ export class Model extends ObsFrm {
     public ciudades: KnockoutComputed<Ciudad[]>;
     public tipo: ObsExtension<TipoAnuncio>;
     public tipos: KnockoutObservableArray<AnunciosDescripcion>;
+
+    public marca: ObsExtension<string>;
+    public modelo: ObsExtension<string>;
+    public año: ObsExtension<number>;
 
     private api: Api;
     private url: Url;
@@ -31,6 +40,11 @@ export class Model extends ObsFrm {
         this.estado = this.add<number>().with(new PositiveNumber());
         this.ciudad = this.add<number>().with(new PositiveNumber());
         this.tipo = this.add<TipoAnuncio>().with(new PositiveNumber());
+
+        this.año = this.add<number>();
+        this.marca = this.add<string>();
+        this.modelo = this.add<string>();
+
         this.tipos = ko.observableArray<AnunciosDescripcion>([
             { tipo: TipoAnuncio.VentaCasa, desc: "Venta de casa o departamento" },
             { tipo: TipoAnuncio.VentaTerreno, desc: "Venta de terrenos" },
@@ -92,24 +106,160 @@ export class Model extends ObsFrm {
         self.estados(items);
     }
 
+    private getSaveUrl = () => {
+        const self = this;
+        switch (self.tipo.value()) {
+            case TipoAnuncio.Empleo:
+                return urls.api.empleos.save;
+            case TipoAnuncio.RentaCasa:
+                return urls.api.inmuebles.save;
+            case TipoAnuncio.RentaTerreno:
+                return urls.api.inmuebles.save;
+            case TipoAnuncio.VentaCasa:
+                return urls.api.inmuebles.save;
+            case TipoAnuncio.VentaTerreno:
+                return urls.api.inmuebles.save;
+            case TipoAnuncio.Vehiculo:
+                return urls.api.vehiculos.save;
+            case TipoAnuncio.Varios:
+                return urls.api.varios.save;
+            default:
+                throw new Error("Tipo no válido");
+        }
+    }
+
+    private getRedirectUrl = () => {
+        const self = this;
+        switch (self.tipo.value()) {
+            case TipoAnuncio.Empleo:
+                return urls.web.empleos.index;
+            case TipoAnuncio.RentaCasa:
+                return urls.web.inmuebles.index;
+            case TipoAnuncio.RentaTerreno:
+                return urls.web.inmuebles.index;
+            case TipoAnuncio.VentaCasa:
+                return urls.web.inmuebles.index;
+            case TipoAnuncio.VentaTerreno:
+                return urls.web.inmuebles.index;
+            case TipoAnuncio.Vehiculo:
+                return urls.web.vehiculos.index;
+            case TipoAnuncio.Varios:
+                return urls.web.varios.index;
+            default:
+                throw new Error("Tipo no válido");
+        }
+    }
+
+    private getModel = (): Empleo | Inmueble | Vehiculo | Varios => {
+        const self = this;
+        let now = new Date();
+
+        switch (self.tipo.value()) {
+            case TipoAnuncio.Empleo:
+                let empleo: Empleo = {
+                    id: 0,
+                    fecha: now,
+                    activo: true,
+                    ciudadId: self.ciudad.value(),
+                    descripcion: self.descripcion.value(),
+                };
+                return empleo;
+            case TipoAnuncio.RentaCasa:
+                let rentaCasa: Inmueble = {
+                    id: 0,
+                    casaTerreno: CasaTerreno.Casa,
+                    ventaRenta: VentaRenta.Renta,
+                    fecha: now,
+                    activo: true,
+                    ciudadId: self.ciudad.value(),
+                    descripcion: self.descripcion.value(),
+                };
+                return rentaCasa;
+            case TipoAnuncio.RentaTerreno:
+                let rentaTerreno: Inmueble = {
+                    id: 0,
+                    casaTerreno: CasaTerreno.Terreno,
+                    ventaRenta: VentaRenta.Renta,
+                    fecha: now,
+                    activo: true,
+                    ciudadId: self.ciudad.value(),
+                    descripcion: self.descripcion.value(),
+                };
+                return rentaTerreno;
+            case TipoAnuncio.VentaCasa:
+                let ventaCasa: Inmueble = {
+                    id: 0,
+                    casaTerreno: CasaTerreno.Casa,
+                    ventaRenta: VentaRenta.Venta,
+                    fecha: now,
+                    activo: true,
+                    ciudadId: self.ciudad.value(),
+                    descripcion: self.descripcion.value(),
+                };
+                return ventaCasa;
+            case TipoAnuncio.VentaTerreno:
+                let ventaTerreno: Inmueble = {
+                    id: 0,
+                    casaTerreno: CasaTerreno.Terreno,
+                    ventaRenta: VentaRenta.Venta,
+                    fecha: now,
+                    activo: true,
+                    ciudadId: self.ciudad.value(),
+                    descripcion: self.descripcion.value(),
+                };
+                return ventaTerreno;
+            case TipoAnuncio.Vehiculo:
+                let vehiculo: Vehiculo = {
+                    id: 0,
+                    marca: self.marca.value(),
+                    modelo: self.modelo.value(),
+                    año: self.año.value(),
+                    fecha: now,
+                    activo: true,
+                    ciudadId: self.ciudad.value(),
+                    descripcion: self.descripcion.value(),
+                };
+                return vehiculo;
+            case TipoAnuncio.Varios:
+                let varios: Varios = {
+                    id: 0,
+                    fecha: now,
+                    activo: true,
+                    ciudadId: self.ciudad.value(),
+                    descripcion: self.descripcion.value(),
+                }
+                return varios;
+            default:
+                throw new Error("Tipo no válido");
+        }
+    }
+
     public async onSave(): Promise<void> {
         const self = this;
+
+        if (self.tipo.value() === TipoAnuncio.Vehiculo) {
+            self.año.rules.push(new PositiveNumber());
+            self.marca.rules.push(new RequiredString());
+            self.modelo.rules.push(new RequiredString());
+        } else {
+            self.año.rules = [];
+            self.marca.rules = []
+            self.modelo.rules = []
+        }
+
         let isValid = await self.validate();
         if (isValid === false) return;
 
-        let url = urls.api.lugares.save;
-        let model = {};
+        let url = self.getSaveUrl();
+        let model = self.getModel();
 
-        await this.api.post<void>(`${url}/${self.ciudad.value()}`, model);
+        await this.api.post<void>(`${url}`, model);
         self.indexRedirect();
     }
 
     public indexRedirect = () => {
         const self = this;
-        let url = urls.web.home.index;
-        if (self.url.getUrlParameter("redirect").length > 0) {
-            url = self.url.getUrlParameter("redirect");
-        }
+        let url = self.getRedirectUrl();
         self.url.navigate(url);
     }
 }

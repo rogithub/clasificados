@@ -75,6 +75,53 @@
 
         <h2 data-bind="text: tipoDesc"></h2>
 
+        <!-- ko if: tipo.value() === 5 -->
+        <div class="col-md-12 mb-3">
+            <label>Marca</label>
+            <input type="text" class="form-control" maxlength="50" data-bind="
+                                css: { 
+                                    'is-invalid': marca.hasError(),
+                                    'is-valid': !marca.hasError() && marca.wasValidated() 
+                                },
+                                textInput: marca.value ">
+            <div class="invalid-feedback">
+                <!-- ko foreach: marca.errors -->
+                <span data-bind="text: $data"></span>
+                <!-- /ko -->
+            </div>
+        </div>
+
+        <div class="col-md-12 mb-3">
+            <label>Modelo</label>
+            <input type="text" class="form-control" maxlength="50" data-bind="
+                                css: { 
+                                    'is-invalid': modelo.hasError(),
+                                    'is-valid': !modelo.hasError() && modelo.wasValidated() 
+                                },
+                                textInput: modelo.value ">
+            <div class="invalid-feedback">
+                <!-- ko foreach: modelo.errors -->
+                <span data-bind="text: $data"></span>
+                <!-- /ko -->
+            </div>
+        </div>
+
+        <div class="col-md-12 mb-3">
+            <label>Año (numérico)</label>
+            <input type="text" class="form-control" maxlength="4" data-bind="
+                                css: { 
+                                    'is-invalid': año.hasError(),
+                                    'is-valid': !año.hasError() && año.wasValidated() 
+                                },
+                                textInput: año.value ">
+            <div class="invalid-feedback">
+                <!-- ko foreach: año.errors -->
+                <span data-bind="text: $data"></span>
+                <!-- /ko -->
+            </div>
+        </div>
+        <!-- /ko -->
+
         <div class="col-md-12 mb-3">
             <label>Anuncio</label>
             <label data-bind="text: letrasRestantes() + ' letras restantes'"></label>
