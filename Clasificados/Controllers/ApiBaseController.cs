@@ -15,8 +15,8 @@ namespace Clasificados.Controllers
     [Route("[controller]")]
     public abstract class ApiBaseController<TEntity, TModel>
     : BaseController
-    where TEntity : ILongId
-    where TModel : ILongId
+    where TEntity : ILongId, IFecha
+    where TModel : ILongId, IFecha
     {
         protected IBaseRepo<TEntity> Repo { get; }
         protected IMapper Mapper { get; }
@@ -68,15 +68,19 @@ namespace Clasificados.Controllers
         [HttpPost()]
         public async Task<ActionResult<TModel>> Save([FromBody] TModel model)
         {
-            var entity = await Repo.Get(model.Id).FirstOrDefaultAsync();
-            if (entity != null) return BadRequest("Already exists!");
             model.Id = 0;
+            model.Fecha = DateTime.Now;
 
             var item = Mapper.Map<TModel, TEntity>(model);
             var affectedRows = await Repo.Save(item);
             if (affectedRows > 0)
             {
-                var location = LinkGen.GetPathByAction("Get", "Materiales", new { model.Id });
+                var controller = this.ControllerContext.RouteData.Values["controller"].ToString();
+                controller = controller
+                .Replace("controller", string.Empty, System.StringComparison.InvariantCultureIgnoreCase)
+                .Replace("api", string.Empty, System.StringComparison.InvariantCultureIgnoreCase);
+
+                var location = LinkGen.GetPathByAction("Index", controller);
                 return Created(location, Mapper.Map<TModel>(item));
             }
 

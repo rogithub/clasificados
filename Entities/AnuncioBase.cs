@@ -2,7 +2,7 @@
 
 namespace Entities
 {
-    public class AnuncioBase : ILongId
+    public class AnuncioBase : ILongId, IFecha
     {
         public Int64 Id { get; set; }
         public Int64 CiudadId { get; set; }

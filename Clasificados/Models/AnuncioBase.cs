@@ -4,7 +4,7 @@ using Entities;
 
 namespace Clasificados.Models
 {
-    public class AnuncioBase : ILongId
+    public class AnuncioBase : ILongId, IFecha
     {
         [Required]
         public Int64 Id { get; set; }
