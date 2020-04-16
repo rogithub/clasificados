@@ -10,3 +10,11 @@ clasificados
 
 # attach to running image
 * $ docker exec -it clasificados_instance bash
+
+# pull db from DEV env
+## en dev server
+* $ docker exec postgres pg_dump -U postgres clasificados > clasificados_bkup
+
+## en prod server
+* $ cat clasificados_bkup | docker exec -i postgres_clasificados psql -U postgres clasificados
+
