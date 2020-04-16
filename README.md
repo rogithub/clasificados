@@ -1,14 +1,12 @@
 # clasificados
 clasificados
-# Docker
-$ docker build -t clasificados .
-$ docker run -it --rm -p 5000:80 --name clasificados_instance clasificados
-$ docker exec -it clasificados_instance bash
+# run Dockerfile
+- $ docker build -t clasificados .
+- $ docker run -it --rm -p 5000:80 --name clasificados_instance clasificados
 
-# docker-compose.yml
-$ docker-compose up -d
+# run compose
+- 1.  $ docker-compose build
+- 2.  $ docker-compose up -d
 
-
-# complete process
-1.  $ docker build -t clasificados .
-2.  $ docker-compose up -d
+# attach to running image
+- $ docker exec -it clasificados_instance bash
