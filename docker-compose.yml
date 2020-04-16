@@ -9,3 +9,13 @@ services:
     volumes:
       - /home/ro/Databases/web_clasificados/logs:/app/logs
     restart: unless-stopped
+  postgres_clasificados:
+    image: postgres
+    container_name: postgres_clasificados
+    environment:
+      - TZ=America/Mexico_City
+    volumes:
+      - /home/ro/Databases/postgres_clasificados:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    restart: unless-stopped
