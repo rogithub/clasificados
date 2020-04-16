@@ -1,7 +1,5 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using Clasificados.Models;
 
 namespace Clasificados.Controllers
 {
@@ -16,6 +14,7 @@ namespace Clasificados.Controllers
 
         public IActionResult Index()
         {
+            Logger.Information("Home Visited");
             return View();
         }
 
