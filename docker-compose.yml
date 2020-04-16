@@ -9,8 +9,3 @@ services:
     volumes:
       - /home/ro/Databases/web_clasificados/logs:/app/logs
     restart: unless-stopped
-  
-networks:
-  default:
-    external:
-      name: postgres_default
