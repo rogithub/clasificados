@@ -17,5 +17,10 @@ RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
 WORKDIR /app
+
+# Change timezone to local time
+ENV TZ=America/Mexico_City
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 COPY --from=build /app/Clasificados/out ./
 ENTRYPOINT ["dotnet", "Clasificados.dll"]
