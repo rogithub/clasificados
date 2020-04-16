@@ -1,5 +1,5 @@
 export default {
-    host: "https://localhost:5001",
+    host: "",
     api: {
         inmuebles: {
             base: '/apiinmuebles',
