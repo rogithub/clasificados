@@ -300,7 +300,7 @@ export class Model extends ObsFrm {
         }
     }
 
-    public async onSave(): Promise<void> {
+    public async onSiguiente(): Promise<void> {
         const self = this;
 
         if (self.tipo.value() === TipoAnuncio.Vehiculo) {
@@ -315,6 +315,12 @@ export class Model extends ObsFrm {
 
         let isValid = await self.validate();
         if (isValid === false) return;
+
+        self.estatus(1);
+    }
+
+    public async onSave(): Promise<void> {
+        const self = this;
 
         let url = self.getSaveUrl();
         let model = self.getModel();
