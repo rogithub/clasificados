@@ -16,9 +16,13 @@
 <script type="text/html" id="default-row-template">
     <div class="row">
         <div class="col-md-12">
-            <p data-bind="text: descripcion">
-
-            </p>
+            <div class="card">
+                <div class="card-body">
+                  <p class="card-text" data-bind="text: descripcion"></p>
+                  <!-- ko template: { name: "date-row-template" } -->
+                  <!-- /ko -->
+                </div>
+            </div>
         </div>
     </div>
 </script>
@@ -26,9 +30,15 @@
 <script type="text/html" id="vehiculo-row-template">
     <div class="row">
         <div class="col-md-12">
-            <p data-bind="text: descripcion">
+            <div class="card">
+                <div class="card-body">                  
+                  <h6 class="card-subtitle mb-2 text-muted" data-bind="text: marca + ' ' + modelo + ' ' + año"></h6>
 
-            </p>
+                  <p class="card-text" data-bind="text: descripcion"></p>
+                  <!-- ko template: { name: "date-row-template" } -->
+                  <!-- /ko -->
+                </div>
+            </div>
         </div>
     </div>
 </script>
@@ -36,10 +46,33 @@
 
 <script type="text/html" id="inmueble-row-template">
     <div class="row">
-        <div class="col-md-12">
-            <p data-bind="text: descripcion">
-
-            </p>
+        <div class="col-md-12">            
+            <div class="card">
+                <div class="card-body">                  
+                  <!-- ko if: ventaRenta === 0 && casaTerreno === 0 -->
+                    <h6 class="card-subtitle mb-2 text-muted">Casa en venta</h6>
+                    <!-- /ko -->
+                    <!-- ko if: ventaRenta === 1 && casaTerreno === 0 -->
+                    <h6 class="card-subtitle mb-2 text-muted">Casa en renta</h6>
+                    <!-- /ko -->
+                    <!-- ko if: ventaRenta === 0 && casaTerreno === 1 -->
+                    <h6 class="card-subtitle mb-2 text-muted">Terreno en venta</h6>
+                    <!-- /ko -->
+                    <!-- ko if: ventaRenta === 1 && casaTerreno === 1 -->
+                    <h6 class="card-subtitle mb-2 text-muted">Terreno en renta</h6>
+                  <!-- /ko -->
+                  <p class="card-text" data-bind="text: descripcion"></p>
+                  <!-- ko template: { name: "date-row-template" } -->
+                  <!-- /ko -->
+                </div>
+            </div>            
         </div>
     </div>
+</script>
+
+<script type="text/html" id="date-row-template">
+    <p class="card-text">        
+        <small class="text-muted" 
+        data-bind="text: $component.formatDate.call($component.formatDate, $data.fecha)"></small>
+    </p>
 </script>

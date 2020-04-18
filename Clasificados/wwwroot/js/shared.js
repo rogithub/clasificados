@@ -931,7 +931,7 @@ exports.Model = Model;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\" data-bind=\"if:  ciudadId() > 0\">\n    <search-field params=\"model: searchModel\"></search-field>\n\n    <h2 data-bind=\"if: list().length === 0\">No se encontraron resultados</h2>\n    <p data-bind=\"if: list().length === 0\">Seleccione otra ciudad o busque con diferentes palabras</p>\n\n    <!-- ko foreach: list -->\n    <!-- ko template: { name: $parent.templateName(), data: $data } -->\n    <!-- /ko -->\n    <hr />\n    <!-- /ko -->\n\n    <pagination params=\"model: pagination\"></pagination>\n</div>\n\n<script type=\"text/html\" id=\"default-row-template\">\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <p data-bind=\"text: descripcion\">\n\n            </p>\n        </div>\n    </div>\n</script>\n\n<script type=\"text/html\" id=\"vehiculo-row-template\">\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <p data-bind=\"text: descripcion\">\n\n            </p>\n        </div>\n    </div>\n</script>\n\n\n<script type=\"text/html\" id=\"inmueble-row-template\">\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <p data-bind=\"text: descripcion\">\n\n            </p>\n        </div>\n    </div>\n</script>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\" data-bind=\"if:  ciudadId() > 0\">\n    <search-field params=\"model: searchModel\"></search-field>\n\n    <h2 data-bind=\"if: list().length === 0\">No se encontraron resultados</h2>\n    <p data-bind=\"if: list().length === 0\">Seleccione otra ciudad o busque con diferentes palabras</p>\n\n    <!-- ko foreach: list -->\n    <!-- ko template: { name: $parent.templateName(), data: $data } -->\n    <!-- /ko -->\n    <hr />\n    <!-- /ko -->\n\n    <pagination params=\"model: pagination\"></pagination>\n</div>\n\n<script type=\"text/html\" id=\"default-row-template\">\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <div class=\"card\">\n                <div class=\"card-body\">\n                  <p class=\"card-text\" data-bind=\"text: descripcion\"></p>\n                  <!-- ko template: { name: \"date-row-template\" } -->\n                  <!-- /ko -->\n                </div>\n            </div>\n        </div>\n    </div>\n</script>\n\n<script type=\"text/html\" id=\"vehiculo-row-template\">\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <div class=\"card\">\n                <div class=\"card-body\">                  \n                  <h6 class=\"card-subtitle mb-2 text-muted\" data-bind=\"text: marca + ' ' + modelo + ' ' + año\"></h6>\n\n                  <p class=\"card-text\" data-bind=\"text: descripcion\"></p>\n                  <!-- ko template: { name: \"date-row-template\" } -->\n                  <!-- /ko -->\n                </div>\n            </div>\n        </div>\n    </div>\n</script>\n\n\n<script type=\"text/html\" id=\"inmueble-row-template\">\n    <div class=\"row\">\n        <div class=\"col-md-12\">            \n            <div class=\"card\">\n                <div class=\"card-body\">                  \n                  <!-- ko if: ventaRenta === 0 && casaTerreno === 0 -->\n                    <h6 class=\"card-subtitle mb-2 text-muted\">Casa en venta</h6>\n                    <!-- /ko -->\n                    <!-- ko if: ventaRenta === 1 && casaTerreno === 0 -->\n                    <h6 class=\"card-subtitle mb-2 text-muted\">Casa en renta</h6>\n                    <!-- /ko -->\n                    <!-- ko if: ventaRenta === 0 && casaTerreno === 1 -->\n                    <h6 class=\"card-subtitle mb-2 text-muted\">Terreno en venta</h6>\n                    <!-- /ko -->\n                    <!-- ko if: ventaRenta === 1 && casaTerreno === 1 -->\n                    <h6 class=\"card-subtitle mb-2 text-muted\">Terreno en renta</h6>\n                  <!-- /ko -->\n                  <p class=\"card-text\" data-bind=\"text: descripcion\"></p>\n                  <!-- ko template: { name: \"date-row-template\" } -->\n                  <!-- /ko -->\n                </div>\n            </div>            \n        </div>\n    </div>\n</script>\n\n<script type=\"text/html\" id=\"date-row-template\">\n    <p class=\"card-text\">        \n        <small class=\"text-muted\" \n        data-bind=\"text: $component.formatDate.call($component.formatDate, $data.fecha)\"></small>\n    </p>\n</script>");
 
 /***/ }),
 /* 21 */
@@ -1005,6 +1005,18 @@ var Model = /** @class */ (function () {
                 }
             });
         }); };
+        this.formatDate = function (date) {
+            var d = new Date(date);
+            var meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiémbre", "octubre", "noviémbre", "diciembre"];
+            var hours = d.getHours();
+            var minutes = d.getMinutes();
+            var ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            var strMinutes = minutes < 10 ? '0' + minutes : minutes;
+            var strTime = hours + ':' + strMinutes + ' ' + ampm;
+            return d.getDate() + " de " + meses[d.getMonth()] + ", " + d.getFullYear() + ". " + strTime;
+        };
         this.api = api;
         this.list = ko.observableArray();
         this.ciudadId = ko.observable(ciudadId);

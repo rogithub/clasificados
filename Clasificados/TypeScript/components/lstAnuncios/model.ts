@@ -47,4 +47,18 @@ export class Model<T> {
         this.pagination.totalRows(set.totalRows);
         this.list(set.payload);
     }
+
+    public formatDate = (date: string): string => {
+        let d = new Date(date);
+        let meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiémbre", "octubre", "noviémbre", "diciembre"];
+        let hours = d.getHours();
+        let minutes = d.getMinutes();
+        let ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        let strMinutes = minutes < 10 ? '0' + minutes : minutes;
+        var strTime = hours + ':' + strMinutes + ' ' + ampm;
+
+        return `${d.getDate()} de ${meses[d.getMonth()]}, ${d.getFullYear()}. ${strTime}`;
+    }
 }
