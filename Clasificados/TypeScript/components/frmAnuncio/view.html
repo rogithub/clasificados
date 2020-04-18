@@ -1,10 +1,12 @@
 <form data-bind="submit: $data.onSave.bind($data)" novalidate>
 
-    <div class="form-row">
-        <div class="col-md-12 mb-3">
+    <div data-bind="if: estatus() === 0">
+        <h2>Crear Anuncio</h2>
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
 
-            <label>Estado</label>
-            <select class="form-control" data-bind="options: estados,
+                <label>Estado</label>
+                <select class="form-control" data-bind="options: estados,
                        optionsText: 'nombre',
                        optionsValue: 'id',
                        value: estado.value,
@@ -14,17 +16,17 @@
                            'is-valid': !estado.hasError() && estado.wasValidated() 
                        }"></select>
 
-            <div class="invalid-feedback">
-                <!-- ko foreach: estado.errors -->
-                <span data-bind="text: $data"></span>
-                <!-- /ko -->
+                <div class="invalid-feedback">
+                    <!-- ko foreach: estado.errors -->
+                    <span data-bind="text: $data"></span>
+                    <!-- /ko -->
+                </div>
+
             </div>
+            <div class="col-md-12 mb-3">
 
-        </div>
-        <div class="col-md-12 mb-3">
-
-            <label>Ciudad</label>
-            <select class="form-control" data-bind="options: ciudades,
+                <label>Ciudad</label>
+                <select class="form-control" data-bind="options: ciudades,
                        optionsText: 'nombre',
                        optionsValue: 'id',
                        value: ciudad.value,
@@ -34,17 +36,17 @@
                            'is-valid': !ciudad.hasError() && ciudad.wasValidated() 
                        }"></select>
 
-            <div class="invalid-feedback">
-                <!-- ko foreach: ciudad.errors -->
-                <span data-bind="text: $data"></span>
-                <!-- /ko -->
+                <div class="invalid-feedback">
+                    <!-- ko foreach: ciudad.errors -->
+                    <span data-bind="text: $data"></span>
+                    <!-- /ko -->
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-12 mb-3">
+            <div class="col-md-12 mb-3">
 
-            <label>Tipo de anuncio</label>
-            <select class="form-control" data-bind="options: tipos,
+                <label>Tipo de anuncio</label>
+                <select class="form-control" data-bind="options: tipos,
                        optionsText: 'desc',
                        optionsValue: 'tipo',
                        value: tipo.value,
@@ -54,82 +56,182 @@
                            'is-valid': !tipo.hasError() && tipo.wasValidated() 
                        }"></select>
 
-            <div class="invalid-feedback">
-                <!-- ko foreach: tipo.errors -->
-                <span data-bind="text: $data"></span>
-                <!-- /ko -->
+                <div class="invalid-feedback">
+                    <!-- ko foreach: tipo.errors -->
+                    <span data-bind="text: $data"></span>
+                    <!-- /ko -->
+                </div>
             </div>
-        </div>
 
-        <h2 data-bind="text: tipoDesc"></h2>
+            <h2 data-bind="text: tipoDesc"></h2>
 
-        <!-- ko if: tipo.value() === 5 -->
-        <div class="col-md-12 mb-3">
-            <label>Marca</label>
-            <input type="text" class="form-control" maxlength="50" data-bind="
+            <!-- ko if: tipo.value() === 5 -->
+            <div class="col-md-12 mb-3">
+                <label>Marca</label>
+                <input type="text" class="form-control" maxlength="50" data-bind="
                                 css: { 
                                     'is-invalid': marca.hasError(),
                                     'is-valid': !marca.hasError() && marca.wasValidated() 
                                 },
                                 textInput: marca.value ">
-            <div class="invalid-feedback">
-                <!-- ko foreach: marca.errors -->
-                <span data-bind="text: $data"></span>
-                <!-- /ko -->
+                <div class="invalid-feedback">
+                    <!-- ko foreach: marca.errors -->
+                    <span data-bind="text: $data"></span>
+                    <!-- /ko -->
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-12 mb-3">
-            <label>Modelo</label>
-            <input type="text" class="form-control" maxlength="50" data-bind="
+            <div class="col-md-12 mb-3">
+                <label>Modelo</label>
+                <input type="text" class="form-control" maxlength="50" data-bind="
                                 css: { 
                                     'is-invalid': modelo.hasError(),
                                     'is-valid': !modelo.hasError() && modelo.wasValidated() 
                                 },
                                 textInput: modelo.value ">
-            <div class="invalid-feedback">
-                <!-- ko foreach: modelo.errors -->
-                <span data-bind="text: $data"></span>
-                <!-- /ko -->
+                <div class="invalid-feedback">
+                    <!-- ko foreach: modelo.errors -->
+                    <span data-bind="text: $data"></span>
+                    <!-- /ko -->
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-12 mb-3">
-            <label>Año (numérico)</label>
-            <input type="text" class="form-control" maxlength="4" data-bind="
+            <div class="col-md-12 mb-3">
+                <label>Año (numérico)</label>
+                <input type="text" class="form-control" maxlength="4" data-bind="
                                 css: { 
                                     'is-invalid': año.hasError(),
                                     'is-valid': !año.hasError() && año.wasValidated() 
                                 },
                                 textInput: año.value ">
-            <div class="invalid-feedback">
-                <!-- ko foreach: año.errors -->
-                <span data-bind="text: $data"></span>
-                <!-- /ko -->
+                <div class="invalid-feedback">
+                    <!-- ko foreach: año.errors -->
+                    <span data-bind="text: $data"></span>
+                    <!-- /ko -->
+                </div>
             </div>
-        </div>
-        <!-- /ko -->
+            <!-- /ko -->
 
-        <div class="col-md-12 mb-3">
-            <label>Anuncio</label>
-            <label data-bind="text: letrasRestantes() + ' letras restantes'"></label>
-            <textarea class="form-control" maxlength="500" rows="5" data-bind="
+            <div class="col-md-12 mb-3">
+                <label>Anuncio</label>
+                <label data-bind="text: letrasRestantes() + ' letras restantes'"></label>
+                <textarea class="form-control" maxlength="500" rows="5" data-bind="
                 css: { 
                     'is-invalid': descripcion.hasError(),
                     'is-valid': !descripcion.hasError() && descripcion.wasValidated() 
                 },
                 textInput: descripcion.value"></textarea>
-            <div class="invalid-feedback">
-                <!-- ko foreach: descripcion.errors -->
-                <span data-bind="text: $data"></span>
-                <!-- /ko -->
+                <div class="invalid-feedback">
+                    <!-- ko foreach: descripcion.errors -->
+                    <span data-bind="text: $data"></span>
+                    <!-- /ko -->
+                </div>
             </div>
         </div>
     </div>
+    <div data-bind="if: estatus() === 1">
+        <h2>Así se verá su anuncio</h2>
+        <p>
+            Revise que todo esté en orden, que su
+            anuncio tenga sus datos de contacto y
+            que no presente información repetida.
+        </p>
+
+        <h3 data-bind="text: lugarSeleccionado()"></h3>
+        <!-- ko template: { name: templateName() } -->
+        <!-- /ko -->
+    </div>
+
+    <br />
 
     <div class="text-right">
-        <button class="btn btn-secondary" data-bind="click: $data.indexRedirect.bind($data)"
-            type="button">Cancelar</button>
-        <button class="btn btn-primary" type="submit">Guardar</button>
+        <button class="btn btn-primary" data-bind="visible: estatus() === 0, click: () => estatus(1)">Siguente</button>
+        <button class="btn btn-secondary"
+            data-bind="visible: estatus() === 1, click: () => estatus(0)">Anterior</button>
+        <button class="btn btn-primary" data-bind="visible: estatus() === 1" type="submit">Publicar</button>
     </div>
 </form>
+
+<script type="text/html" id="date-row-template">
+    <p class="card-text">        
+        <small class="text-muted" 
+        data-bind="text: $component.formatDate.call($component.formatDate)"></small>
+    </p>
+</script>
+
+<script type="text/html" id="empty-row-template">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">                  
+                  <h6 class="card-subtitle mb-2 text-muted">
+                      Título
+                  </h6>
+
+                  <p class="card-text">
+                      Descripción
+                  </p>
+                  <!-- ko template: { name: "date-row-template" } -->
+                  <!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="default-row-template">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" data-bind="with: getModel()">
+                <div class="card-body">
+                  <p class="card-text" data-bind="text: descripcion"></p>
+                  <!-- ko template: { name: "date-row-template" } -->
+                  <!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="vehiculo-row-template">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" data-bind="with: getModel()">
+                <div class="card-body">                  
+                  <h6 class="card-subtitle mb-2 text-muted" data-bind="text: marca + ' ' + modelo + ' ' + año"></h6>
+
+                  <p class="card-text" data-bind="text: descripcion"></p>
+                  <!-- ko template: { name: "date-row-template" } -->
+                  <!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/html" id="inmueble-row-template">
+    <div class="row">
+        <div class="col-md-12">            
+            <div class="card" data-bind="with: getModel()">
+                <div class="card-body">                  
+                  <!-- ko if: ventaRenta === 0 && casaTerreno === 0 -->
+                    <h6 class="card-subtitle mb-2 text-muted">Casa en venta</h6>
+                    <!-- /ko -->
+                    <!-- ko if: ventaRenta === 1 && casaTerreno === 0 -->
+                    <h6 class="card-subtitle mb-2 text-muted">Casa en renta</h6>
+                    <!-- /ko -->
+                    <!-- ko if: ventaRenta === 0 && casaTerreno === 1 -->
+                    <h6 class="card-subtitle mb-2 text-muted">Terreno en venta</h6>
+                    <!-- /ko -->
+                    <!-- ko if: ventaRenta === 1 && casaTerreno === 1 -->
+                    <h6 class="card-subtitle mb-2 text-muted">Terreno en renta</h6>
+                  <!-- /ko -->
+                  <p class="card-text" data-bind="text: descripcion"></p>
+                  <!-- ko template: { name: "date-row-template" } -->
+                  <!-- /ko -->
+                </div>
+            </div>            
+        </div>
+    </div>
+</script>

@@ -12,6 +12,11 @@ import { Inmueble, CasaTerreno, VentaRenta } from '../../models/inmueble';
 import { Varios } from '../../models/varios';
 import { Vehiculo } from '../../models/vehiculo';
 
+enum AnuncioEstatus {
+    Editando,
+    Revisando
+}
+
 export class Model extends ObsFrm {
 
     public tipoDesc: KnockoutComputed<string>;
@@ -27,6 +32,9 @@ export class Model extends ObsFrm {
     public marca: ObsExtension<string>;
     public modelo: ObsExtension<string>;
     public año: ObsExtension<number>;
+    public templateName: KnockoutComputed<string>;
+    public estatus: KnockoutObservable<AnuncioEstatus>;
+    public lugarSeleccionado: KnockoutComputed<string>;
 
     private api: Api;
     private url: Url;
@@ -40,6 +48,7 @@ export class Model extends ObsFrm {
         this.estado = this.add<number>().with(new PositiveNumber());
         this.ciudad = this.add<number>().with(new PositiveNumber());
         this.tipo = this.add<TipoAnuncio>().with(new PositiveNumber());
+        this.estatus = ko.observable<AnuncioEstatus>(AnuncioEstatus.Editando);
 
         this.año = this.add<number>();
         this.marca = this.add<string>();
@@ -95,6 +104,55 @@ export class Model extends ObsFrm {
                 return t.tipo === self.tipo.value();
             }).desc;
 
+        }, self);
+
+        this.templateName = ko.pureComputed<string>(() => {
+
+            switch (self.tipo.value()) {
+                case TipoAnuncio.Empleo:
+                    return "default-row-template";
+                case TipoAnuncio.RentaCasa:
+                    return "inmueble-row-template";
+                case TipoAnuncio.RentaTerreno:
+                    return "inmueble-row-template";
+                case TipoAnuncio.VentaCasa:
+                    return "inmueble-row-template";
+                case TipoAnuncio.VentaTerreno:
+                    return "inmueble-row-template";
+                case TipoAnuncio.Vehiculo:
+                    return "vehiculo-row-template";
+                case TipoAnuncio.Varios:
+                    return "default-row-template";
+                default:
+                    return "empty-row-template";
+            }
+
+        }, self);
+
+        this.lugarSeleccionado = ko.pureComputed<string>(() => {
+            if (self.estado.value() === null || self.estado.value() === undefined ||
+                self.ciudad.value() === null || self.ciudad.value() === undefined ||
+                self.estado.value() <= 0 || self.ciudad.value() <= 0
+            )
+                return "";
+
+            let e = ko.utils.arrayFilter(self.estados(), it => {
+                return it.id === self.estado.value();
+            });
+
+            if (e.length !== 1) {
+                return "";
+            }
+
+            let c = ko.utils.arrayFilter(e[0].ciudades, it => {
+                return it.id === self.ciudad.value();
+            });
+
+            if (c.length !== 1) {
+                return "";
+            }
+
+            return `${c[0].nombre}, ${e[0].nombre}.`;
         }, self);
 
     }
@@ -268,6 +326,20 @@ export class Model extends ObsFrm {
         await this.api.post<any>(`${url}/${self.ciudad.value()}`, {});
 
         self.indexRedirect();
+    }
+
+    public formatDate = (): string => {
+        let d = new Date(Date.now());
+        let meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiémbre", "octubre", "noviémbre", "diciembre"];
+        let hours = d.getHours();
+        let minutes = d.getMinutes();
+        let ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        let strMinutes = minutes < 10 ? '0' + minutes : minutes;
+        var strTime = hours + ':' + strMinutes + ' ' + ampm;
+
+        return `${d.getDate()} de ${meses[d.getMonth()]}, ${d.getFullYear()}. ${strTime}`;
     }
 
     public indexRedirect = () => {
